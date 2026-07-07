@@ -246,6 +246,7 @@ img {
   letter-spacing: 0.02em;
 }
 
+
 .page {
   position: relative;
   min-height: 100vh;
@@ -692,7 +693,7 @@ img {
 .hero-banner--used .hero-banner__inner {
   grid-template-columns: minmax(0, 0.82fr) minmax(460px, 1.18fr);
   gap: 18px;
-  min-height: 640px;
+  min-height: 740px;
   padding-top: 46px;
   padding-bottom: 26px;
 }
@@ -710,14 +711,14 @@ img {
 }
 
 .hero-banner--used .hero-banner__media {
-  min-height: 540px;
+  min-height: 630px;
   align-items: flex-end;
   padding: 0 0 18px;
 }
 
 .hero-banner--used .hero-banner__pallet {
-  width: min(920px, 100%);
-  transform: translateX(8%) translateY(24px) scale(1.1);
+  width: min(980px, 100%);
+  transform: translateX(10%) translateY(26px) scale(1.14);
   transform-origin: center right;
   filter:
     drop-shadow(0 34px 42px rgba(0, 0, 0, 0.34))
@@ -750,7 +751,17 @@ body[data-page-key="new"] .site-header {
   padding-top: 0;
 }
 
+body[data-page-key="used"] .site-header {
+  position: fixed;
+  inset: 14px 0 auto;
+  padding-top: 0;
+}
+
 body[data-page-key="new"] .hero-banner--new {
+  margin-top: 0;
+}
+
+body[data-page-key="used"] .hero-banner--used {
   margin-top: 0;
 }
 
@@ -1760,7 +1771,7 @@ body[data-page-key="new"] .hero-banner--new {
 }
 
 .page--used .catalog-section {
-  padding-top: 8px;
+  padding-top: 42px;
 }
 
 .page--used .catalog-section__inner {
@@ -2523,6 +2534,7 @@ body[data-page-key="new"] .hero-banner--new {
     min-width: 0;
     width: 100%;
   }
+
 }
 
 @media (max-width: 720px) {
@@ -2880,4 +2892,5 @@ body[data-page-key="new"] .hero-banner--new {
     min-height: 64px;
     font-size: 16px;
   }
+
 }
