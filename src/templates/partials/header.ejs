@@ -1,0 +1,58 @@
+<%
+const currentPageKey = typeof pageKey !== "undefined" ? pageKey : "home";
+const rootHref = typeof basePath !== "undefined" ? basePath : "/";
+const headerNavItems = [
+  { href: "#company", label: "О компании" },
+  { href: "#catalog", label: "Каталог" },
+  { href: "#delivery", label: "Доставка и оплата" },
+  { href: "#reviews", label: "Отзывы" },
+  { href: "#contacts", label: "Контакты" },
+];
+const headerSwitcherItems = [
+  { href: `${rootHref}new.html`, key: "new", label: "Новые" },
+  { href: `${rootHref}used.html`, key: "used", label: "Б/у" },
+];
+%>
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-brand" href="<%= rootHref %>" aria-label="Паллет Сервис">
+      <img
+        alt=""
+        aria-hidden="true"
+        class="site-brand__mark"
+        src="<%= rootHref %>assets/logo-mark.png"
+      />
+
+      <span class="site-brand__text">
+        <strong>ПАЛЛЕТ СЕРВИС</strong>
+        <em>Продажа и покупка поддонов</em>
+      </span>
+    </a>
+
+    <nav class="site-nav" aria-label="Основная навигация">
+      <% headerNavItems.forEach((item) => { %>
+        <a href="<%= item.href %>"><%= item.label %></a>
+      <% }) %>
+    </nav>
+
+    <div class="site-switcher" aria-label="Переключение между видами поддонов">
+      <% headerSwitcherItems.forEach((item) => { %>
+        <a
+          class="site-switcher__link<%= currentPageKey === item.key ? ' site-switcher__link--active' : '' %>"
+          href="<%= item.href %>"
+        >
+          <%= item.label %>
+        </a>
+      <% }) %>
+    </div>
+
+    <a class="site-phone" href="tel:+375291234567">
+      <span class="site-phone__icon" aria-hidden="true">✆</span>
+      <span class="site-phone__text">
+        <strong>+375 (29) 123-45-67</strong>
+        <em>Ежедневно с 9:00 до 18:00</em>
+      </span>
+    </a>
+  </div>
+</header>

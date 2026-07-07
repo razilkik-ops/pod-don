@@ -1,0 +1,17 @@
+<%
+const pageTitle = "Б/у поддоны";
+const pageKey = "used";
+%>
+<!doctype html>
+<html lang="ru" data-page-key="used">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= pageTitle %></title>
+  </head>
+  <body data-page-key="used">
+    <%- include("/src/templates/partials/header.ejs") %>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

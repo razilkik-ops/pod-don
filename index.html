@@ -1,0 +1,17 @@
+<%
+const pageTitle = "Выбор поддонов";
+const pageKey = "home";
+%>
+<!doctype html>
+<html lang="ru" data-page-key="home">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= pageTitle %></title>
+  </head>
+  <body data-page-key="home">
+    <%- include("/src/templates/partials/header.ejs") %>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
