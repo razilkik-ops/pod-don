@@ -30,13 +30,13 @@ const prefixPaths = (value) => {
 };
 
 const specIcons = {
-  thickness: "/assets/generated/spec-icons/thickness.png",
-  deck: "/assets/generated/spec-icons/deck.png",
-  size: "/assets/generated/spec-icons/size.png",
-  weight: "/assets/generated/spec-icons/weight.png",
-  sort: "/assets/generated/spec-icons/grade.png",
-  material: "/assets/generated/spec-icons/material.png",
-  quality: "/assets/generated/spec-icons/quality.png",
+  thickness: "/assets/generated/spec-icons/thickness.webp",
+  deck: "/assets/generated/spec-icons/deck.webp",
+  size: "/assets/generated/spec-icons/size.webp",
+  weight: "/assets/generated/spec-icons/weight.webp",
+  sort: "/assets/generated/spec-icons/grade.webp",
+  material: "/assets/generated/spec-icons/material.webp",
+  quality: "/assets/generated/spec-icons/quality.webp",
 };
 
 const sharedActions = {
@@ -62,22 +62,22 @@ const compactText = (value = "") => value.replace(/\s+/g, " ").trim();
 
 const homeHighlights = [
   {
-    icon: "/assets/generated/bottom-icon-factory.png",
+    icon: "/assets/generated/bottom-icon-factory.webp",
     title: "Собственное производство",
     text: "Стабильное качество и точная геометрия каждой партии",
   },
   {
-    icon: "/assets/generated/bottom-icon-shield.png",
+    icon: "/assets/generated/bottom-icon-shield.webp",
     title: "Проверенный материал",
     text: "Новые и б/у поддоны с контролем состояния и сортировки",
   },
   {
-    icon: "/assets/generated/bottom-icon-boxes.png",
+    icon: "/assets/generated/bottom-icon-boxes.webp",
     title: "Любые объёмы",
     text: "Быстро комплектуем поставки от малого заказа до опта",
   },
   {
-    icon: "/assets/generated/bottom-icon-truck.png",
+    icon: "/assets/generated/bottom-icon-truck.webp",
     title: "Доставка по Беларуси",
     text: "Организуем отгрузку, самовывоз и доставку под ваш график",
   },
@@ -91,23 +91,23 @@ const pageConfigs = {
       title: "Новые поддоны",
       lead:
         "Качественные новые поддоны из хвойных пород дерева.\nИдеальны для хранения и транспортировки грузов.",
-      image: "/assets/generated/new-pallets-hero.png",
+      image: "/assets/generated/new-pallets-hero.webp",
       imageAlt: "Стопка новых деревянных поддонов",
       primaryAction: "Оформить заявку",
       secondaryAction: "Позвонить",
       features: [
         {
-          icon: "/assets/generated/icon-shield.png",
+          icon: "/assets/generated/icon-shield.webp",
           title: "Высокое качество",
           text: "и надежность",
         },
         {
-          icon: "/assets/generated/icon-tree.png",
+          icon: "/assets/generated/icon-tree.webp",
           title: "Изготовлены",
           text: "из свежей древесины",
         },
         {
-          icon: "/assets/generated/icon-badge.png",
+          icon: "/assets/generated/icon-badge.webp",
           title: "Соответствуют",
           text: "всем стандартам",
         },
@@ -122,11 +122,11 @@ const pageConfigs = {
         summary: "Новый поддон\nдля склада и логистики",
         detailLead:
           "Новый поддон размера 120×80 см.\nПодходит для складских, транспортных\nи производственных задач.",
-        image: "/assets/generated/catalog-pallet-1.png",
+        image: "/assets/generated/catalog-pallet-1.webp",
         gallery: [
-          "/assets/generated/detail/product-main-euro.png",
-          "/assets/generated/detail/product-angle-euro.png",
-          "/assets/generated/detail/product-closeup-euro.png",
+          "/assets/generated/detail/product-main-euro.webp",
+          "/assets/generated/detail/product-angle-euro.webp",
+          "/assets/generated/detail/product-closeup-euro.webp",
         ],
         price: "32 BYN",
         priceNote: "Точная стоимость уточняется по телефону",
@@ -158,11 +158,11 @@ const pageConfigs = {
         summary: "Новый поддон\nдля хранения и отгрузки",
         detailLead:
           "Новый поддон размера 114×114 см.\nУдобен для хранения, комплектации\nи отгрузки продукции.",
-        image: "/assets/generated/catalog-pallet-2.png",
+        image: "/assets/generated/catalog-pallet-2.webp",
         gallery: [
-          "/assets/generated/detail/product-angle-euro.png",
-          "/assets/generated/catalog-pallet-2.png",
-          "/assets/generated/detail/product-closeup-euro.png",
+          "/assets/generated/detail/product-angle-euro.webp",
+          "/assets/generated/catalog-pallet-2.webp",
+          "/assets/generated/detail/product-closeup-euro.webp",
         ],
         price: "36 BYN",
         priceNote: "Точная стоимость зависит от объёма партии",
@@ -194,11 +194,11 @@ const pageConfigs = {
         summary: "Новый поддон\nдля складской логистики",
         detailLead:
           "Новый поддон размера 120×100 см.\nПодходит для склада, логистики\nи комплектации грузов.",
-        image: "/assets/generated/catalog-pallet-3.png",
+        image: "/assets/generated/catalog-pallet-3.webp",
         gallery: [
-          "/assets/generated/catalog-pallet-3.png",
-          "/assets/generated/detail/product-angle-euro.png",
-          "/assets/generated/detail/product-closeup-euro.png",
+          "/assets/generated/catalog-pallet-3.webp",
+          "/assets/generated/detail/product-angle-euro.webp",
+          "/assets/generated/detail/product-closeup-euro.webp",
         ],
         price: "27 BYN",
         priceNote: "Точная стоимость зависит от объёма партии",
@@ -230,11 +230,11 @@ const pageConfigs = {
         summary: "Новый поддон\nдля крупного формата груза",
         detailLead:
           "Новый поддон размера 120×120 см.\nПодходит для крупного формата груза,\nсклада и отгрузки.",
-        image: "/assets/generated/catalog-pallet-4.png",
+        image: "/assets/generated/catalog-pallet-4.webp",
         gallery: [
-          "/assets/generated/catalog-pallet-4.png",
-          "/assets/generated/detail/product-angle-euro.png",
-          "/assets/generated/detail/product-closeup-euro.png",
+          "/assets/generated/catalog-pallet-4.webp",
+          "/assets/generated/detail/product-angle-euro.webp",
+          "/assets/generated/detail/product-closeup-euro.webp",
         ],
         price: "41 BYN",
         priceNote: "Точная стоимость зависит от объёма партии",
@@ -266,11 +266,11 @@ const pageConfigs = {
         summary: "Изготовим поддон\nпод ваш запрос",
         detailLead:
           "Изготовим новые поддоны под нужный размер,\nтолщину доски и задачу.\nПодберём решение под ваш груз.",
-        image: "/assets/generated/catalog-pallet-2.png",
+        image: "/assets/generated/catalog-pallet-2.webp",
         gallery: [
-          "/assets/generated/catalog-pallet-2.png",
-          "/assets/generated/detail/product-angle-euro.png",
-          "/assets/generated/detail/product-closeup-euro.png",
+          "/assets/generated/catalog-pallet-2.webp",
+          "/assets/generated/detail/product-angle-euro.webp",
+          "/assets/generated/detail/product-closeup-euro.webp",
         ],
         price: "По запросу",
         priceNote: "Стоимость зависит от размера, толщины доски и объёма партии",
@@ -298,44 +298,44 @@ const pageConfigs = {
     ],
     highlights: [
       {
-        icon: "/assets/generated/bottom-icon-factory.png",
+        icon: "/assets/generated/bottom-icon-factory.webp",
         title: "Собственное производство",
         text: "Полный контроль качества\nна всех этапах производства",
       },
       {
-        icon: "/assets/generated/bottom-icon-shield.png",
+        icon: "/assets/generated/bottom-icon-shield.webp",
         title: "Стандарт качества",
         text: "Соответствие ГОСТ / EPAL,\nконтроль на каждом этапе",
       },
       {
-        icon: "/assets/generated/bottom-icon-boxes.png",
+        icon: "/assets/generated/bottom-icon-boxes.webp",
         title: "Любые объёмы",
         text: "Возможность поставок\nот малых до крупных партий",
       },
       {
-        icon: "/assets/generated/bottom-icon-truck.png",
+        icon: "/assets/generated/bottom-icon-truck.webp",
         title: "Доставка по России",
         text: "Быстрая и надёжная доставка\nв любую точку страны",
       },
     ],
     detailBenefits: [
       {
-        icon: "/assets/generated/bottom-icon-shield.png",
+        icon: "/assets/generated/bottom-icon-shield.webp",
         title: "Высокое качество",
         text: "Изготовлены из отборной\nдревесины, без трещин\nи дефектов.",
       },
       {
-        icon: "/assets/generated/icon-tree.png",
+        icon: "/assets/generated/icon-tree.webp",
         title: "Свежая древесина",
         text: "Используем только свежую\nдревесину хвойных пород\nс естественной влажностью.",
       },
       {
-        icon: "/assets/generated/icon-badge.png",
+        icon: "/assets/generated/icon-badge.webp",
         title: "Соответствие стандартам",
         text: "Производство по ГОСТ\nи стандартам EPAL.\nГарантия надёжности.",
       },
       {
-        icon: "/assets/generated/bottom-icon-truck.png",
+        icon: "/assets/generated/bottom-icon-truck.webp",
         title: "Быстрая доставка",
         text: "Оперативная доставка\nпо Минску и всей\nБеларуси.",
       },
@@ -343,19 +343,19 @@ const pageConfigs = {
     reviewsTitle: "Отзывы наших клиентов",
     reviews: [
       {
-        logo: "/assets/generated/review-logo-vector.png",
+        logo: "/assets/generated/review-logo-vector.webp",
         name: "Иван Петров",
         company: "Логистическая компания «ТрансВектор»",
         text: "Работаем с ПАЛЛЕТ СЕРВИС уже\nболее года. Всегда стабильное качество,\nточные сроки и отличное отношение\nк клиентам.",
       },
       {
-        logo: "/assets/generated/review-logo-systems.png",
+        logo: "/assets/generated/review-logo-systems.webp",
         name: "Ольга Смирнова",
         company: "ООО «Складские системы»",
         text: "Заказываем новые поддоны партиями.\nКачество на высоте, поддоны крепкие,\nсоответствуют ГОСТ. Рекомендуем\nкак надёжного поставщика.",
       },
       {
-        logo: "/assets/generated/review-logo-metal.png",
+        logo: "/assets/generated/review-logo-metal.webp",
         name: "Алексей Кузнецов",
         company: "Завод «МеталлПром»",
         text: "Нужны были усиленные поддоны\nдля тяжёлых грузов. Всё сделали быстро,\nдоставили в срок. Будем сотрудничать\nи дальше.",
@@ -369,23 +369,23 @@ const pageConfigs = {
       title: "Б/у поддоны",
       lead:
         "Проверенные поддоны в хорошем состоянии\nпо выгодной цене. Подходят для склада, логистики\nи перевозок.",
-      image: "/assets/pallet-used.png",
+      image: "/assets/pallet-used.webp",
       imageAlt: "Стопка б/у поддонов на складе",
       primaryAction: "Оформить заявку",
       secondaryAction: "Позвонить",
       features: [
         {
-          icon: "/assets/generated/bottom-icon-shield.png",
+          icon: "/assets/generated/bottom-icon-shield.webp",
           title: "Проверенное",
           text: "состояние",
         },
         {
-          icon: "/assets/generated/catalog-icon-tag.png",
+          icon: "/assets/generated/catalog-icon-tag.webp",
           title: "Выгодная",
           text: "цена",
         },
         {
-          icon: "/assets/generated/detail/status-check.png",
+          icon: "/assets/generated/detail/status-check.webp",
           title: "Готовы",
           text: "к работе",
         },
@@ -400,11 +400,11 @@ const pageConfigs = {
         summary: "5 или 6 досок\nверхнего настила",
         detailLead:
           "Б/у поддон размера 120x800 мм.\nВарианты исполнения: верхний настил 5 или 6 досок,\nтолщина доски 19, 20 или 22 мм.",
-        image: "/assets/generated/used/used-card-1.png",
+        image: "/assets/generated/used/used-card-1.webp",
         gallery: [
-          "/assets/generated/used/used-hero.png",
-          "/assets/generated/used/used-card-1.png",
-          "/assets/generated/used/used-quality-closeup.png",
+          "/assets/generated/used/used-hero.webp",
+          "/assets/generated/used/used-card-1.webp",
+          "/assets/generated/used/used-quality-closeup.webp",
         ],
         cardPrice: "24 BYN",
         price: "24 BYN",
@@ -426,7 +426,7 @@ const pageConfigs = {
           { icon: specIcons.size, label: "Размер: 1200×800 мм" },
           { icon: specIcons.weight, label: "Нагрузка: до 1500 кг" },
           { icon: specIcons.material, label: "Материал: хвойные породы" },
-          { icon: "/assets/generated/bottom-icon-shield.png", label: "Состояние: сортировка и проверка перед отгрузкой" },
+          { icon: "/assets/generated/bottom-icon-shield.webp", label: "Состояние: сортировка и проверка перед отгрузкой" },
         ],
       },
       {
@@ -436,11 +436,11 @@ const pageConfigs = {
         summary: "5, 6 досок или\nсплошной настил",
         detailLead:
           "Б/у поддон размера 120x1000 мм.\nВарианты исполнения: верхний настил 5 досок,\n6 досок или сплошной настил без промежутков.",
-        image: "/assets/generated/used/used-card-2.png",
+        image: "/assets/generated/used/used-card-2.webp",
         gallery: [
-          "/assets/generated/used/used-card-2.png",
-          "/assets/generated/used/used-hero.png",
-          "/assets/generated/used/used-quality-closeup.png",
+          "/assets/generated/used/used-card-2.webp",
+          "/assets/generated/used/used-hero.webp",
+          "/assets/generated/used/used-quality-closeup.webp",
         ],
         cardPrice: "28 BYN",
         price: "28 BYN",
@@ -462,7 +462,7 @@ const pageConfigs = {
           { icon: specIcons.size, label: "Размер: 1200×1000 мм" },
           { icon: specIcons.weight, label: "Нагрузка: до 1500 кг" },
           { icon: specIcons.material, label: "Материал: хвойные породы" },
-          { icon: "/assets/generated/bottom-icon-shield.png", label: "Состояние: отобранные, пригодные к эксплуатации" },
+          { icon: "/assets/generated/bottom-icon-shield.webp", label: "Состояние: отобранные, пригодные к эксплуатации" },
         ],
       },
       {
@@ -472,11 +472,11 @@ const pageConfigs = {
         summary: "5, 6 досок или\nсплошной настил",
         detailLead:
           "Б/у поддон размера 120x1200 мм.\nВарианты исполнения: верхний настил 5 досок,\n6 досок или сплошной настил без промежутков.",
-        image: "/assets/generated/used/used-card-3.png",
+        image: "/assets/generated/used/used-card-3.webp",
         gallery: [
-          "/assets/generated/used/used-card-3.png",
-          "/assets/generated/used/used-card-1.png",
-          "/assets/generated/used/used-quality-closeup.png",
+          "/assets/generated/used/used-card-3.webp",
+          "/assets/generated/used/used-card-1.webp",
+          "/assets/generated/used/used-quality-closeup.webp",
         ],
         cardPrice: "30 BYN",
         price: "30 BYN",
@@ -498,7 +498,7 @@ const pageConfigs = {
           { icon: specIcons.size, label: "Размер: 1200×1200 мм" },
           { icon: specIcons.weight, label: "Нагрузка: до 1800 кг" },
           { icon: specIcons.material, label: "Материал: хвойные породы" },
-          { icon: "/assets/generated/bottom-icon-shield.png", label: "Состояние: рабочее, после сортировки" },
+          { icon: "/assets/generated/bottom-icon-shield.webp", label: "Состояние: рабочее, после сортировки" },
         ],
       },
       {
@@ -508,11 +508,11 @@ const pageConfigs = {
         summary: "1 сорт и 2 сорт,\nEUR / EPAL / UIC",
         detailLead:
           "Б/у европоддоны с клеймом размером 120x80.\nЕсть 1 сорт и 2 сорт: светлый и тёмный.\nМаркировка EUR, EPAL, UIC.",
-        image: "/assets/pallet-used.png",
+        image: "/assets/pallet-used.webp",
         gallery: [
-          "/assets/pallet-used.png",
-          "/assets/generated/used/used-hero.png",
-          "/assets/generated/used/used-quality-closeup.png",
+          "/assets/pallet-used.webp",
+          "/assets/generated/used/used-hero.webp",
+          "/assets/generated/used/used-quality-closeup.webp",
         ],
         cardPrice: "32 BYN",
         price: "32 BYN",
@@ -534,28 +534,28 @@ const pageConfigs = {
           { icon: specIcons.sort, label: "2 сорт: тёмный, серый слегка" },
           { icon: specIcons.material, label: "Материал: хвойные породы" },
           { icon: specIcons.quality, label: "Маркировка: EUR, EPAL, UIC" },
-          { icon: "/assets/generated/bottom-icon-shield.png", label: "Срезаны углы, снята фаска для заезда тележки" },
+          { icon: "/assets/generated/bottom-icon-shield.webp", label: "Срезаны углы, снята фаска для заезда тележки" },
         ],
       },
     ],
     highlights: [
       {
-        icon: "/assets/generated/bottom-icon-factory.png",
+        icon: "/assets/generated/bottom-icon-factory.webp",
         title: "Собственная сортировка",
         text: "Поддоны проходят сортировку\nи отбраковку на нашем складе",
       },
       {
-        icon: "/assets/generated/bottom-icon-shield.png",
+        icon: "/assets/generated/bottom-icon-shield.webp",
         title: "Контроль качества",
         text: "Проверяем поддоны\nна прочность и пригодность\nк эксплуатации",
       },
       {
-        icon: "/assets/generated/bottom-icon-boxes.png",
+        icon: "/assets/generated/bottom-icon-boxes.webp",
         title: "Любые объёмы",
         text: "От небольших партий\nдо крупных оптовых поставок",
       },
       {
-        icon: "/assets/generated/bottom-icon-truck.png",
+        icon: "/assets/generated/bottom-icon-truck.webp",
         title: "Доставка по Беларуси",
         text: "Быстрая и надёжная доставка\nв любой регион страны",
       },
@@ -564,37 +564,37 @@ const pageConfigs = {
       title: "Склад и качество",
       items: [
         {
-          image: "/assets/generated/used/used-quality-warehouse.png",
+          image: "/assets/generated/used/used-quality-warehouse.webp",
           caption: "Большой склад б/у поддонов",
         },
         {
-          image: "/assets/generated/used/used-quality-inspection.png",
+          image: "/assets/generated/used/used-quality-inspection.webp",
           caption: "Проверка и сортировка каждого поддона",
         },
         {
-          image: "/assets/generated/used/used-quality-closeup.png",
+          image: "/assets/generated/used/used-quality-closeup.webp",
           caption: "Чёткая маркировка и реальное состояние",
         },
       ],
     },
     detailBenefits: [
       {
-        icon: "/assets/generated/bottom-icon-shield.png",
+        icon: "/assets/generated/bottom-icon-shield.webp",
         title: "Проверенное состояние",
         text: "Каждая партия проходит\nсортировку и визуальный\nконтроль перед продажей.",
       },
       {
-        icon: "/assets/generated/catalog-icon-tag.png",
+        icon: "/assets/generated/catalog-icon-tag.webp",
         title: "Экономия бюджета",
         text: "Б/у поддоны помогают\nснизить затраты без потери\nрабочего функционала.",
       },
       {
-        icon: "/assets/generated/icon-badge.png",
+        icon: "/assets/generated/icon-badge.webp",
         title: "Готовы к работе",
         text: "Поддоны отбираются\nдля повторной эксплуатации\nна складе и в логистике.",
       },
       {
-        icon: "/assets/generated/bottom-icon-truck.png",
+        icon: "/assets/generated/bottom-icon-truck.webp",
         title: "Быстрая доставка",
         text: "Организуем отгрузку\nи доставку по Минску\nи всей Беларуси.",
       },
@@ -630,7 +630,7 @@ function CatalogCard({ item, onOpen, related = false }) {
   return (
     <article className={`catalog-card${related ? " catalog-card--related" : ""}`}>
       <div className="catalog-card__image-wrap">
-        <img alt={item.title} className="catalog-card__image" src={item.image} />
+        <img alt={item.title} className="catalog-card__image" decoding="async" loading="lazy" src={item.image} />
       </div>
 
       <div className="catalog-card__body">
@@ -640,7 +640,7 @@ function CatalogCard({ item, onOpen, related = false }) {
         <ul className="catalog-card__specs">
           {item.specs.map(({ icon, label }) => (
             <li key={label}>
-              <img alt="" aria-hidden="true" src={icon} />
+              <img alt="" aria-hidden="true" decoding="async" loading="lazy" src={icon} />
               <span>{label}</span>
             </li>
           ))}
@@ -655,7 +655,7 @@ function CatalogCard({ item, onOpen, related = false }) {
 
         <button className="catalog-card__button" onClick={() => onOpen(item.id)} type="button">
           <span>Подробнее</span>
-          <img alt="" aria-hidden="true" src={withBase("/assets/generated/icon-arrow-right.png")} />
+          <img alt="" aria-hidden="true" src={withBase("/assets/generated/icon-arrow-right.webp")} />
         </button>
       </div>
     </article>
@@ -664,7 +664,7 @@ function CatalogCard({ item, onOpen, related = false }) {
 
 function ReviewIdentity({ review }) {
   if (review.logo) {
-    return <img alt="" aria-hidden="true" className="review-card__logo" src={review.logo} />;
+    return <img alt="" aria-hidden="true" className="review-card__logo" decoding="async" loading="lazy" src={review.logo} />;
   }
 
   return <span className="review-card__avatar">{review.avatar}</span>;
@@ -682,7 +682,7 @@ function SelectionLanding() {
               <img
                 alt="Стопка новых поддонов и ящик из новых поддонов"
                 className="selection-hero__image selection-hero__image--new-combo"
-                src={withBase("/assets/generated/home/new-pallets-with-crate.png")}
+                src={withBase("/assets/generated/home/new-pallets-with-crate.webp")}
               />
             </div>
 
@@ -698,7 +698,7 @@ function SelectionLanding() {
               </p>
               <a className="selection-hero__button selection-hero__button--dark" href={withBase("/new.html")}>
                 <span>Смотреть каталог</span>
-                <img alt="" aria-hidden="true" src={withBase("/assets/generated/icon-arrow-right.png")} />
+                <img alt="" aria-hidden="true" src={withBase("/assets/generated/icon-arrow-right.webp")} />
               </a>
             </div>
           </div>
@@ -716,15 +716,16 @@ function SelectionLanding() {
               </p>
               <a className="selection-hero__button selection-hero__button--gold" href={withBase("/used.html")}>
                 <span>Смотреть каталог</span>
-                <img alt="" aria-hidden="true" src={withBase("/assets/generated/icon-arrow-right.png")} />
+                <img alt="" aria-hidden="true" src={withBase("/assets/generated/icon-arrow-right.webp")} />
               </a>
             </div>
 
             <img
-              alt="Две стопки б/у поддонов"
-              className="selection-hero__image selection-hero__image--used"
-              src={withBase("/assets/generated/home/used-pallets-duo.png")}
-            />
+                alt="Две стопки б/у поддонов"
+                className="selection-hero__image selection-hero__image--used"
+                decoding="async"
+                src={withBase("/assets/generated/home/used-pallets-duo.webp")}
+              />
           </div>
         </div>
       </section>
@@ -733,7 +734,7 @@ function SelectionLanding() {
         <div className="selection-highlights__inner">
           {resolvedHomeHighlights.map(({ icon, text, title }) => (
             <article className="selection-highlight" key={title}>
-              <img alt="" aria-hidden="true" className="selection-highlight__icon" src={icon} />
+              <img alt="" aria-hidden="true" className="selection-highlight__icon" decoding="async" loading="lazy" src={icon} />
               <div className="selection-highlight__text">
                 <strong>{title}</strong>
                 <p>{text}</p>
@@ -906,12 +907,12 @@ export function App({ pageKey = "home" }) {
                 type="button"
               >
                 <span>{page.hero.primaryAction}</span>
-                <img alt="" aria-hidden="true" src={withBase("/assets/generated/icon-arrow-right.png")} />
+                <img alt="" aria-hidden="true" src={withBase("/assets/generated/icon-arrow-right.webp")} />
               </button>
 
               <a className="hero-button hero-button--ghost" href={sharedActions.phoneHref}>
                 <span>{page.hero.secondaryAction}</span>
-                <img alt="" aria-hidden="true" src={withBase("/assets/generated/detail/phone.png")} />
+                <img alt="" aria-hidden="true" src={withBase("/assets/generated/detail/phone.webp")} />
               </a>
             </div>
 
@@ -980,6 +981,7 @@ export function App({ pageKey = "home" }) {
                   <img
                     alt={selectedProduct.title}
                     className="product-detail-card__main-image"
+                    decoding="async"
                     src={activeGalleryImage}
                   />
                 </div>
@@ -994,7 +996,7 @@ export function App({ pageKey = "home" }) {
                       onClick={() => setActiveGalleryIndex(index)}
                       type="button"
                     >
-                      <img alt="" aria-hidden="true" src={image} />
+                      <img alt="" aria-hidden="true" decoding="async" loading="lazy" src={image} />
                     </button>
                   ))}
                 </div>
@@ -1005,7 +1007,7 @@ export function App({ pageKey = "home" }) {
                   <h2 id="product-detail-title">{selectedProduct.detailTitle}</h2>
 
                   <div className="product-detail-card__availability">
-                    <img alt="" aria-hidden="true" src={withBase("/assets/generated/detail/status-check.png")} />
+                    <img alt="" aria-hidden="true" src={withBase("/assets/generated/detail/status-check.webp")} />
                     <span>{selectedProduct.availability}</span>
                   </div>
                 </div>
@@ -1055,21 +1057,21 @@ export function App({ pageKey = "home" }) {
                 <ul className="product-detail-card__specs">
                   {activeThickness ? (
                     <li>
-                      <img alt="" aria-hidden="true" src={specIcons.thickness} />
+                      <img alt="" aria-hidden="true" decoding="async" loading="lazy" src={specIcons.thickness} />
                       <span>{`Толщина доски: ${activeThickness}`}</span>
                     </li>
                   ) : null}
 
                   {activeDeck ? (
                     <li>
-                      <img alt="" aria-hidden="true" src={specIcons.deck} />
+                      <img alt="" aria-hidden="true" decoding="async" loading="lazy" src={specIcons.deck} />
                       <span>{`Верхний настил: ${activeDeck}`}</span>
                     </li>
                   ) : null}
 
                   {selectedProduct.detailSpecs.map(({ icon, label }) => (
                     <li key={label}>
-                      <img alt="" aria-hidden="true" src={icon} />
+                      <img alt="" aria-hidden="true" decoding="async" loading="lazy" src={icon} />
                       <span>{label}</span>
                     </li>
                   ))}
@@ -1097,23 +1099,23 @@ export function App({ pageKey = "home" }) {
                     type="button"
                   >
                     <span>Оформить заявку</span>
-                    <img alt="" aria-hidden="true" src={withBase("/assets/generated/icon-arrow-right.png")} />
+                    <img alt="" aria-hidden="true" src={withBase("/assets/generated/icon-arrow-right.webp")} />
                   </button>
 
                   <a className="product-detail-card__action product-detail-card__action--ghost" href={sharedActions.phoneHref}>
-                    <img alt="" aria-hidden="true" src={withBase("/assets/generated/detail/phone.png")} />
+                    <img alt="" aria-hidden="true" src={withBase("/assets/generated/detail/phone.webp")} />
                     <span>Позвонить</span>
                   </a>
                 </div>
 
                 <div className="product-detail-card__meta">
                   <article className="product-detail-card__meta-item">
-                    <img alt="" aria-hidden="true" src={withBase("/assets/generated/detail/pin.png")} />
+                    <img alt="" aria-hidden="true" src={withBase("/assets/generated/detail/pin.webp")} />
                     <span>{selectedProduct.pickup}</span>
                   </article>
 
                   <article className="product-detail-card__meta-item">
-                    <img alt="" aria-hidden="true" src={withBase("/assets/generated/bottom-icon-truck.png")} />
+                    <img alt="" aria-hidden="true" src={withBase("/assets/generated/bottom-icon-truck.webp")} />
                     <span>{selectedProduct.delivery}</span>
                   </article>
                 </div>
@@ -1173,7 +1175,7 @@ export function App({ pageKey = "home" }) {
                   <div className="request-modal__footer">
                     <button className="request-modal__submit" onClick={closeRequestModal} type="button">
                       <span>Закрыть окно</span>
-                      <img alt="" aria-hidden="true" src={withBase("/assets/generated/icon-arrow-right.png")} />
+                      <img alt="" aria-hidden="true" src={withBase("/assets/generated/icon-arrow-right.webp")} />
                     </button>
                   </div>
                 </div>
@@ -1222,11 +1224,11 @@ export function App({ pageKey = "home" }) {
                   <div className="request-modal__footer">
                     <button className="request-modal__submit" type="submit">
                       <span>Отправить заявку</span>
-                      <img alt="" aria-hidden="true" src={withBase("/assets/generated/icon-arrow-right.png")} />
+                      <img alt="" aria-hidden="true" src={withBase("/assets/generated/icon-arrow-right.webp")} />
                     </button>
 
                     <a className="request-modal__ghost" href={sharedActions.phoneHref}>
-                      <img alt="" aria-hidden="true" src={withBase("/assets/generated/detail/phone.png")} />
+                      <img alt="" aria-hidden="true" src={withBase("/assets/generated/detail/phone.webp")} />
                       <span>Позвонить</span>
                     </a>
                   </div>
@@ -1242,7 +1244,7 @@ export function App({ pageKey = "home" }) {
             <div className="highlights-strip__inner">
               {page.highlights.map(({ icon, text, title }) => (
                 <article className="highlight-item" key={title}>
-                  <img alt="" aria-hidden="true" className="highlight-item__icon" src={icon} />
+                  <img alt="" aria-hidden="true" className="highlight-item__icon" decoding="async" loading="lazy" src={icon} />
                   <div className="highlight-item__text">
                     <strong>{title}</strong>
                     <p>{text}</p>
@@ -1263,7 +1265,7 @@ export function App({ pageKey = "home" }) {
                 <div className="quality-grid">
                   {page.qualitySection.items.map(({ caption, image }) => (
                     <article className="quality-card" key={caption}>
-                      <img alt={caption} src={image} />
+                      <img alt={caption} decoding="async" loading="lazy" src={image} />
                       <span>{caption}</span>
                     </article>
                   ))}
@@ -1319,11 +1321,11 @@ export function App({ pageKey = "home" }) {
 
                     <div className="cta-band__meta">
                       <span>
-                        <img alt="" aria-hidden="true" src={withBase("/assets/generated/detail/pin.png")} />
+                        <img alt="" aria-hidden="true" src={withBase("/assets/generated/detail/pin.webp")} />
                         {page.ctaBanner.pickup}
                       </span>
                       <span>
-                        <img alt="" aria-hidden="true" src={withBase("/assets/generated/bottom-icon-truck.png")} />
+                        <img alt="" aria-hidden="true" src={withBase("/assets/generated/bottom-icon-truck.webp")} />
                         {page.ctaBanner.delivery}
                       </span>
                     </div>
@@ -1336,7 +1338,7 @@ export function App({ pageKey = "home" }) {
                   type="button"
                 >
                   <span>{page.ctaBanner.buttonLabel}</span>
-                  <img alt="" aria-hidden="true" src={withBase("/assets/generated/icon-arrow-right.png")} />
+                  <img alt="" aria-hidden="true" src={withBase("/assets/generated/icon-arrow-right.webp")} />
                 </button>
               </div>
             </section>

@@ -34,7 +34,7 @@ body {
 
 html[data-page-key="home"],
 body[data-page-key="home"] {
-  background: #090a0c url("/assets/generated/home/backpoddon.png") center center / cover no-repeat;
+  background: #090a0c url("/assets/generated/home/backpoddon.webp") center center / cover no-repeat;
 }
 
 a {
@@ -250,7 +250,7 @@ img {
   position: relative;
   min-height: 100vh;
   padding: 0;
-  background: #090a0c url("/assets/warehouse-bg.png") center top / cover no-repeat;
+  background: #090a0c url("/assets/warehouse-bg.webp") center top / cover no-repeat;
 }
 
 .page::before {
