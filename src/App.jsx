@@ -58,7 +58,35 @@ const emptyRequestContext = {
   deck: "",
 };
 
+const newVariantAssetVersion = "2026-07-09-6boards-fix-2";
 const compactText = (value = "") => value.replace(/\s+/g, " ").trim();
+const versionAsset = (path = "", version = newVariantAssetVersion) => `${path}?v=${version}`;
+const makeVariantKey = (thickness = "", deck = "") => [compactText(thickness), compactText(deck)].filter(Boolean).join("::");
+const deckSlugMap = {
+  "5 досок": "5boards",
+  "6 досок": "6boards",
+  "Сплошной настил": "soliddeck",
+  "Под запрос": "custom",
+};
+const makeThicknessSlug = (thickness = "") => compactText(thickness).toLowerCase().replace(/\s+/g, "").replace("мм", "mm");
+const buildNewVariantImageMap = (size, thicknessOptions = [], deckOptions = []) =>
+  Object.fromEntries(
+    thicknessOptions.flatMap((thickness) =>
+      deckOptions.map((deck) => [
+        makeVariantKey(thickness, deck),
+        versionAsset(
+          `/assets/generated/variants/new-cropped/new-${size}-${makeThicknessSlug(thickness)}-${deckSlugMap[deck]}.webp`,
+        ),
+      ]),
+    ),
+  );
+const getVariantImageForProduct = (product, thickness = "", deck = "") => {
+  if (!product?.variantImages) {
+    return "";
+  }
+
+  return product.variantImages[makeVariantKey(thickness, deck)] || "";
+};
 
 const homeHighlights = [
   {
@@ -87,6 +115,7 @@ const pageConfigs = {
   new: {
     pageClassName: "page--new",
     heroClassName: "hero-banner--new",
+    showCatalogSpecs: true,
     hero: {
       title: "Новые поддоны",
       lead:
@@ -113,7 +142,7 @@ const pageConfigs = {
         },
       ],
     },
-    catalogTitle: "Каталог новых поддонов",
+    catalogTitle: "Каталог",
     catalogItems: [
       {
         id: "euro-1200x800",
@@ -122,12 +151,8 @@ const pageConfigs = {
         summary: "Новый поддон\nдля склада и логистики",
         detailLead:
           "Новый поддон размера 120×80 см.\nПодходит для складских, транспортных\nи производственных задач.",
-        image: "/assets/generated/catalog-pallet-1.webp",
-        gallery: [
-          "/assets/generated/detail/product-main-euro.webp",
-          "/assets/generated/detail/product-angle-euro.webp",
-          "/assets/generated/detail/product-closeup-euro.webp",
-        ],
+        image: versionAsset("/assets/generated/variants/new-cropped/new-120x80-22mm-5boards.webp"),
+        gallery: [versionAsset("/assets/generated/variants/new-cropped/new-120x80-22mm-5boards.webp")],
         price: "32 BYN",
         priceNote: "Точная стоимость уточняется по телефону",
         availability: "В наличии",
@@ -137,6 +162,7 @@ const pageConfigs = {
         defaultThickness: "22 мм",
         deckOptions: ["5 досок", "6 досок"],
         defaultDeck: "5 досок",
+        variantImages: buildNewVariantImageMap("120x80", ["19 мм", "20 мм", "22 мм"], ["5 досок", "6 досок"]),
         specs: [
           { icon: specIcons.thickness, label: "Толщина доски: 19 / 20 / 22 мм" },
           { icon: specIcons.deck, label: "Настил: 5 или 6 досок" },
@@ -158,12 +184,8 @@ const pageConfigs = {
         summary: "Новый поддон\nдля хранения и отгрузки",
         detailLead:
           "Новый поддон размера 114×114 см.\nУдобен для хранения, комплектации\nи отгрузки продукции.",
-        image: "/assets/generated/catalog-pallet-2.webp",
-        gallery: [
-          "/assets/generated/detail/product-angle-euro.webp",
-          "/assets/generated/catalog-pallet-2.webp",
-          "/assets/generated/detail/product-closeup-euro.webp",
-        ],
+        image: versionAsset("/assets/generated/variants/new-cropped/new-114x114-22mm-5boards.webp"),
+        gallery: [versionAsset("/assets/generated/variants/new-cropped/new-114x114-22mm-5boards.webp")],
         price: "36 BYN",
         priceNote: "Точная стоимость зависит от объёма партии",
         availability: "В наличии",
@@ -173,6 +195,7 @@ const pageConfigs = {
         defaultThickness: "22 мм",
         deckOptions: ["5 досок", "6 досок"],
         defaultDeck: "5 досок",
+        variantImages: buildNewVariantImageMap("114x114", ["19 мм", "20 мм", "22 мм"], ["5 досок", "6 досок"]),
         specs: [
           { icon: specIcons.thickness, label: "Толщина доски: 19 / 20 / 22 мм" },
           { icon: specIcons.deck, label: "Настил: 5 или 6 досок" },
@@ -194,12 +217,8 @@ const pageConfigs = {
         summary: "Новый поддон\nдля складской логистики",
         detailLead:
           "Новый поддон размера 120×100 см.\nПодходит для склада, логистики\nи комплектации грузов.",
-        image: "/assets/generated/catalog-pallet-3.webp",
-        gallery: [
-          "/assets/generated/catalog-pallet-3.webp",
-          "/assets/generated/detail/product-angle-euro.webp",
-          "/assets/generated/detail/product-closeup-euro.webp",
-        ],
+        image: versionAsset("/assets/generated/variants/new-cropped/new-120x100-22mm-5boards.webp"),
+        gallery: [versionAsset("/assets/generated/variants/new-cropped/new-120x100-22mm-5boards.webp")],
         price: "27 BYN",
         priceNote: "Точная стоимость зависит от объёма партии",
         availability: "В наличии",
@@ -209,6 +228,7 @@ const pageConfigs = {
         defaultThickness: "22 мм",
         deckOptions: ["5 досок", "6 досок", "Сплошной настил"],
         defaultDeck: "5 досок",
+        variantImages: buildNewVariantImageMap("120x100", ["19 мм", "20 мм", "22 мм"], ["5 досок", "6 досок", "Сплошной настил"]),
         specs: [
           { icon: specIcons.thickness, label: "Толщина доски: 19 / 20 / 22 мм" },
           { icon: specIcons.deck, label: "Настил: 5 / 6 / сплошной" },
@@ -230,12 +250,8 @@ const pageConfigs = {
         summary: "Новый поддон\nдля крупного формата груза",
         detailLead:
           "Новый поддон размера 120×120 см.\nПодходит для крупного формата груза,\nсклада и отгрузки.",
-        image: "/assets/generated/catalog-pallet-4.webp",
-        gallery: [
-          "/assets/generated/catalog-pallet-4.webp",
-          "/assets/generated/detail/product-angle-euro.webp",
-          "/assets/generated/detail/product-closeup-euro.webp",
-        ],
+        image: versionAsset("/assets/generated/variants/new-cropped/new-120x120-22mm-5boards.webp"),
+        gallery: [versionAsset("/assets/generated/variants/new-cropped/new-120x120-22mm-5boards.webp")],
         price: "41 BYN",
         priceNote: "Точная стоимость зависит от объёма партии",
         availability: "В наличии",
@@ -245,6 +261,7 @@ const pageConfigs = {
         defaultThickness: "22 мм",
         deckOptions: ["5 досок", "6 досок", "Сплошной настил"],
         defaultDeck: "5 досок",
+        variantImages: buildNewVariantImageMap("120x120", ["19 мм", "20 мм", "22 мм"], ["5 досок", "6 досок", "Сплошной настил"]),
         specs: [
           { icon: specIcons.thickness, label: "Толщина доски: 19 / 20 / 22 мм" },
           { icon: specIcons.deck, label: "Настил: 5 / 6 / сплошной" },
@@ -266,12 +283,8 @@ const pageConfigs = {
         summary: "Изготовим поддон\nпод ваш запрос",
         detailLead:
           "Изготовим новые поддоны под нужный размер,\nтолщину доски и задачу.\nПодберём решение под ваш груз.",
-        image: "/assets/generated/catalog-pallet-2.webp",
-        gallery: [
-          "/assets/generated/catalog-pallet-2.webp",
-          "/assets/generated/detail/product-angle-euro.webp",
-          "/assets/generated/detail/product-closeup-euro.webp",
-        ],
+        image: versionAsset("/assets/generated/variants/new-cropped/new-custom-size.webp"),
+        gallery: [versionAsset("/assets/generated/variants/new-cropped/new-custom-size.webp")],
         price: "По запросу",
         priceNote: "Стоимость зависит от размера, толщины доски и объёма партии",
         availability: "Под заказ",
@@ -305,7 +318,7 @@ const pageConfigs = {
       {
         icon: "/assets/generated/bottom-icon-shield.webp",
         title: "Стандарт качества",
-        text: "Соответствие ГОСТ / EPAL,\nконтроль на каждом этапе",
+        text: "Соответствие ГОСТ,\nконтроль на каждом этапе",
       },
       {
         icon: "/assets/generated/bottom-icon-boxes.webp",
@@ -314,7 +327,7 @@ const pageConfigs = {
       },
       {
         icon: "/assets/generated/bottom-icon-truck.webp",
-        title: "Доставка по России",
+        title: "Доставка по РБ",
         text: "Быстрая и надёжная доставка\nв любую точку страны",
       },
     ],
@@ -361,10 +374,38 @@ const pageConfigs = {
         text: "Нужны были усиленные поддоны\nдля тяжёлых грузов. Всё сделали быстро,\nдоставили в срок. Будем сотрудничать\nи дальше.",
       },
     ],
+    legalDetails: {
+      display: "footer",
+      title: "Реквизиты компании",
+      company: 'ООО "ДЕРЕКОН"',
+      items: [
+        {
+          label: "Адрес",
+          value: "БЕЛАРУСЬ, Г. МИНСК, УЛ. ОЛЕШЕВА, ДОМ 9, ОФ. 5, ПОМ., 220090",
+        },
+        {
+          label: "УНП",
+          value: "194009703",
+        },
+        {
+          label: "Карт-счет",
+          value: "BY08ALFA30122K03300010270000 в BYN",
+        },
+        {
+          label: "Банк",
+          value: 'ЗАО "Альфа-Банк"',
+        },
+        {
+          label: "БИК",
+          value: "ALFABY2X",
+        },
+      ],
+    },
   },
   used: {
     pageClassName: "page--used",
     heroClassName: "hero-banner--used",
+    showCatalogSpecs: false,
     hero: {
       title: "Б/у поддоны",
       lead:
@@ -391,7 +432,7 @@ const pageConfigs = {
         },
       ],
     },
-    catalogTitle: "Каталог б/у поддонов",
+    catalogTitle: "Каталог",
     catalogItems: [
       {
         id: "used-euro-1200x800",
@@ -560,23 +601,7 @@ const pageConfigs = {
         text: "Быстрая и надёжная доставка\nв любой регион страны",
       },
     ],
-    qualitySection: {
-      title: "Склад и качество",
-      items: [
-        {
-          image: "/assets/generated/used/used-quality-warehouse.webp",
-          caption: "Большой склад б/у поддонов",
-        },
-        {
-          image: "/assets/generated/used/used-quality-inspection.webp",
-          caption: "Проверка и сортировка каждого поддона",
-        },
-        {
-          image: "/assets/generated/used/used-quality-closeup.webp",
-          caption: "Чёткая маркировка и реальное состояние",
-        },
-      ],
-    },
+    qualitySection: null,
     detailBenefits: [
       {
         icon: "/assets/generated/bottom-icon-shield.webp",
@@ -620,15 +645,44 @@ const pageConfigs = {
         text: "Работаем уже не первый год. Удобные\nусловия, гибкий подход и качественные\nподдоны. Спасибо за сотрудничество!",
       },
     ],
+    legalDetails: {
+      display: "footer",
+      title: "Реквизиты компании",
+      company: "ИП ГУСЕВ АЛЕКСЕЙ АЛЕКСАНДРОВИЧ",
+      items: [
+        {
+          label: "Адрес",
+          value: "БЕЛАРУСЬ, Г. МИНСК, УЛ. КОРЖЕНЕВСКОГО, ДОМ 10, КОРПУС 2, ОФ. 45, 220108",
+        },
+        {
+          label: "УНП",
+          value: "193429209",
+        },
+        {
+          label: "Текущий (расчетный) счет",
+          value: "BY58ALFA30132652320010270000 в BYN",
+        },
+        {
+          label: "Банк",
+          value: 'ЗАО "Альфа-Банк"',
+        },
+        {
+          label: "БИК",
+          value: "ALFABY2X",
+        },
+      ],
+    },
   },
 };
 
 const resolvedHomeHighlights = prefixPaths(homeHighlights);
 const resolvedPageConfigs = prefixPaths(pageConfigs);
 
-function CatalogCard({ item, onOpen, related = false }) {
+function CatalogCard({ item, onOpen, related = false, showSpecs = true }) {
   return (
-    <article className={`catalog-card${related ? " catalog-card--related" : ""}`}>
+    <article
+      className={`catalog-card${related ? " catalog-card--related" : ""}${item.id === "custom-size-order" ? " catalog-card--custom" : ""}`}
+    >
       <div className="catalog-card__image-wrap">
         <img alt={item.title} className="catalog-card__image" decoding="async" loading="lazy" src={item.image} />
       </div>
@@ -637,14 +691,16 @@ function CatalogCard({ item, onOpen, related = false }) {
         <h3>{item.title}</h3>
         {item.summary ? <p>{item.summary}</p> : null}
 
-        <ul className="catalog-card__specs">
-          {item.specs.map(({ icon, label }) => (
-            <li key={label}>
-              <img alt="" aria-hidden="true" decoding="async" loading="lazy" src={icon} />
-              <span>{label}</span>
-            </li>
-          ))}
-        </ul>
+        {showSpecs ? (
+          <ul className="catalog-card__specs">
+            {item.specs.map(({ icon, label }) => (
+              <li key={label}>
+                <img alt="" aria-hidden="true" decoding="async" loading="lazy" src={icon} />
+                <span>{label}</span>
+              </li>
+            ))}
+          </ul>
+        ) : null}
 
         {item.cardPrice ? (
           <div className="catalog-card__price-line">
@@ -677,7 +733,7 @@ function SelectionLanding() {
         <h1 className="visually-hidden">Выбор поддонов</h1>
 
         <div className="selection-hero__inner">
-          <div className="selection-hero__column selection-hero__column--new">
+          <a className="selection-hero__column selection-hero__column--new" href={withBase("/new.html")}>
             <div className="selection-hero__media selection-hero__media--new">
               <img
                 alt="Стопка новых поддонов и ящик из новых поддонов"
@@ -696,14 +752,16 @@ function SelectionLanding() {
                 <br />
                 Идеальны для любых задач.
               </p>
-              <a className="selection-hero__button selection-hero__button--dark" href={withBase("/new.html")}>
-                <span>Смотреть каталог</span>
+              <span className="selection-hero__button selection-hero__button--dark">
+                <span className="selection-hero__button-label" data-mobile-label="Каталог">
+                  Смотреть каталог
+                </span>
                 <img alt="" aria-hidden="true" src={withBase("/assets/generated/icon-arrow-right.webp")} />
-              </a>
+              </span>
             </div>
-          </div>
+          </a>
 
-          <div className="selection-hero__column selection-hero__column--used">
+          <a className="selection-hero__column selection-hero__column--used" href={withBase("/used.html")}>
             <div className="selection-hero__copy">
               <span className="selection-hero__accent" aria-hidden="true" />
               <h2>Б/у поддоны</h2>
@@ -714,10 +772,12 @@ function SelectionLanding() {
                 <br />
                 по выгодной цене.
               </p>
-              <a className="selection-hero__button selection-hero__button--gold" href={withBase("/used.html")}>
-                <span>Смотреть каталог</span>
+              <span className="selection-hero__button selection-hero__button--gold">
+                <span className="selection-hero__button-label" data-mobile-label="Каталог">
+                  Смотреть каталог
+                </span>
                 <img alt="" aria-hidden="true" src={withBase("/assets/generated/icon-arrow-right.webp")} />
-              </a>
+              </span>
             </div>
 
             <img
@@ -726,7 +786,7 @@ function SelectionLanding() {
                 decoding="async"
                 src={withBase("/assets/generated/home/used-pallets-duo.webp")}
               />
-          </div>
+          </a>
         </div>
       </section>
 
@@ -762,12 +822,14 @@ export function App({ pageKey = "home" }) {
   }
 
   const page = resolvedPageConfigs[pageKey] ?? resolvedPageConfigs.new;
+  const requestSectionLabel = pageKey === "used" ? "Б/у" : pageKey === "new" ? "Новые" : "";
   const selectedProduct = page.catalogItems.find((item) => item.id === selectedProductId) ?? null;
-  const selectedGallery = selectedProduct?.gallery ?? [];
-  const activeGalleryImage = selectedGallery[activeGalleryIndex] ?? selectedGallery[0] ?? "";
   const activeThickness =
     selectedThickness || selectedProduct?.defaultThickness || selectedProduct?.thicknessOptions?.[0] || "";
   const activeDeck = selectedDeck || selectedProduct?.defaultDeck || selectedProduct?.deckOptions?.[0] || "";
+  const activeVariantImage = getVariantImageForProduct(selectedProduct, activeThickness, activeDeck);
+  const selectedGallery = activeVariantImage ? [activeVariantImage] : selectedProduct?.gallery ?? [];
+  const activeGalleryImage = selectedGallery[activeGalleryIndex] ?? selectedGallery[0] ?? "";
 
   const openProductDetail = (productId) => {
     setSelectedProductId(productId);
@@ -781,25 +843,14 @@ export function App({ pageKey = "home" }) {
 
   const openRequestModal = ({ deck = "", product = "", source = "", thickness = "" } = {}) => {
     const nextContext = {
-      source: compactText(source),
+      source: compactText(source) || requestSectionLabel,
       product: compactText(product),
       thickness: compactText(thickness),
       deck: compactText(deck),
     };
-    const nextComment = [
-      nextContext.source ? `Интересует раздел: ${nextContext.source}` : "",
-      nextContext.product ? `Товар: ${nextContext.product}` : "",
-      nextContext.thickness ? `Толщина доски: ${nextContext.thickness}` : "",
-      nextContext.deck ? `Верхний настил: ${nextContext.deck}` : "",
-    ]
-      .filter(Boolean)
-      .join("\n");
 
     setRequestContext(nextContext);
-    setRequestForm({
-      ...emptyRequestForm,
-      comment: nextComment,
-    });
+    setRequestForm(emptyRequestForm);
     setRequestStatus("idle");
     setIsRequestModalOpen(true);
   };
@@ -857,6 +908,10 @@ export function App({ pageKey = "home" }) {
   }, [selectedProduct]);
 
   useEffect(() => {
+    setActiveGalleryIndex(0);
+  }, [activeVariantImage]);
+
+  useEffect(() => {
     if (!selectedProduct && !isRequestModalOpen) {
       return undefined;
     }
@@ -903,7 +958,7 @@ export function App({ pageKey = "home" }) {
             <div className="hero-banner__actions">
               <button
                 className="hero-button hero-button--primary"
-                onClick={() => openRequestModal({ source: page.hero.title })}
+                onClick={() => openRequestModal()}
                 type="button"
               >
                 <span>{page.hero.primaryAction}</span>
@@ -944,7 +999,12 @@ export function App({ pageKey = "home" }) {
 
           <div className="catalog-grid">
             {page.catalogItems.map((item) => (
-              <CatalogCard item={item} key={item.id} onOpen={openProductDetail} />
+              <CatalogCard
+                item={item}
+                key={item.id}
+                onOpen={openProductDetail}
+                showSpecs={page.showCatalogSpecs !== false}
+              />
             ))}
           </div>
         </div>
@@ -966,16 +1026,16 @@ export function App({ pageKey = "home" }) {
           />
 
           <div className="product-detail-section__inner">
-            <button
-              aria-label="Закрыть карточку товара"
-              className="product-detail-section__close"
-              onClick={closeProductDetail}
-              type="button"
-            >
-              <span aria-hidden="true">×</span>
-            </button>
-
             <div className="product-detail-card">
+              <button
+                aria-label="Закрыть карточку товара"
+                className="product-detail-section__close"
+                onClick={closeProductDetail}
+                type="button"
+              >
+                <span aria-hidden="true">×</span>
+              </button>
+
               <div className="product-detail-card__gallery">
                 <div className="product-detail-card__main-frame">
                   <img
@@ -987,7 +1047,7 @@ export function App({ pageKey = "home" }) {
                 </div>
 
                 <div className="product-detail-card__thumbs" role="tablist" aria-label="Галерея товара">
-                  {selectedProduct.gallery.map((image, index) => (
+                  {selectedGallery.map((image, index) => (
                     <button
                       aria-label={`Показать изображение ${index + 1}`}
                       aria-pressed={activeGalleryIndex === index}
@@ -1090,7 +1150,6 @@ export function App({ pageKey = "home" }) {
                     className="product-detail-card__action product-detail-card__action--primary"
                     onClick={() =>
                       openRequestModal({
-                        source: page.catalogTitle,
                         product: selectedProduct.detailTitle,
                         thickness: activeThickness,
                         deck: activeDeck,
@@ -1140,17 +1199,16 @@ export function App({ pageKey = "home" }) {
           />
 
           <div className="request-modal__dialog">
-            <button
-              aria-label="Закрыть форму заявки"
-              className="request-modal__close"
-              onClick={closeRequestModal}
-              type="button"
-            >
-              <span aria-hidden="true">×</span>
-            </button>
-
             <div className="request-modal__panel">
-              <span className="request-modal__eyebrow">Заявка</span>
+              <button
+                aria-label="Закрыть форму заявки"
+                className="request-modal__close"
+                onClick={closeRequestModal}
+                type="button"
+              >
+                <span aria-hidden="true">×</span>
+              </button>
+
               <h2 id="request-modal-title">Оформить заявку</h2>
               <p className="request-modal__lead">
                 Оставьте имя и телефон. Мы свяжемся с вами, уточним детали и подготовим предложение.
@@ -1274,41 +1332,34 @@ export function App({ pageKey = "home" }) {
             </section>
           ) : null}
 
-          <section className="reviews-section" id="reviews">
-            <div className="reviews-section__inner">
-              <div className="reviews-section__heading">
-                <h2>{page.reviewsTitle}</h2>
-                <span aria-hidden="true" className="reviews-section__accent" />
-              </div>
+          {page.legalDetails && page.legalDetails.display !== "footer" ? (
+            <section className="legal-section" id="contacts">
+              {!page.qualitySection ? <span aria-hidden="true" className="section-anchor" id="company" /> : null}
 
-              <div className="reviews-grid">
-                {page.reviews.map((review) => (
-                  <article className="review-card" key={review.name}>
-                    <div className="review-card__content">
-                      <div className="review-card__quote" aria-hidden="true">
-                        “
+              <div className="legal-section__inner">
+                <div className="legal-section__heading">
+                  <h2>{page.legalDetails.title}</h2>
+                  <span aria-hidden="true" className="legal-section__accent" />
+                </div>
+
+                <article className="legal-card">
+                  <div className="legal-card__company">
+                    <span>Получатель</span>
+                    <strong>{page.legalDetails.company}</strong>
+                  </div>
+
+                  <div className="legal-card__grid">
+                    {page.legalDetails.items.map(({ label, value }) => (
+                      <div className="legal-card__item" key={label}>
+                        <span>{label}</span>
+                        <strong>{value}</strong>
                       </div>
-                      <p className="review-card__text">{review.text}</p>
-                    </div>
-
-                    <div className="review-card__person">
-                      <ReviewIdentity review={review} />
-                      <div>
-                        <strong>{review.name}</strong>
-                        <span>{review.company}</span>
-                      </div>
-                    </div>
-                  </article>
-                ))}
+                    ))}
+                  </div>
+                </article>
               </div>
-
-              <div className="reviews-dots" aria-hidden="true">
-                <span className="reviews-dots__dot reviews-dots__dot--active" />
-                <span className="reviews-dots__dot" />
-                <span className="reviews-dots__dot" />
-              </div>
-            </div>
-          </section>
+            </section>
+          ) : null}
 
           {page.ctaBanner ? (
             <section className="cta-band" id="contacts">
@@ -1334,7 +1385,7 @@ export function App({ pageKey = "home" }) {
 
                 <button
                   className="cta-band__button"
-                  onClick={() => openRequestModal({ source: page.ctaBanner.title })}
+                  onClick={() => openRequestModal()}
                   type="button"
                 >
                   <span>{page.ctaBanner.buttonLabel}</span>
@@ -1342,6 +1393,23 @@ export function App({ pageKey = "home" }) {
                 </button>
               </div>
             </section>
+          ) : null}
+
+          {page.legalDetails?.display === "footer" ? (
+            <footer className="site-footer site-footer--legal" id="contacts">
+              <div className="site-footer__inner">
+                <p className="site-footer__eyebrow">{page.legalDetails.title}</p>
+                <p className="site-footer__company">{page.legalDetails.company}</p>
+
+                <div className="site-footer__lines">
+                  {page.legalDetails.items.map(({ label, value }) => (
+                    <p className="site-footer__line" key={label}>
+                      <span>{label}:</span> {value}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            </footer>
           ) : null}
       </>
     </main>

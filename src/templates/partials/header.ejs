@@ -5,7 +5,6 @@ const headerNavItems = [
   { href: "#company", label: "О компании" },
   { href: "#catalog", label: "Каталог" },
   { href: "#delivery", label: "Доставка и оплата" },
-  { href: "#reviews", label: "Отзывы" },
   { href: "#contacts", label: "Контакты" },
 ];
 const headerSwitcherItems = [
@@ -14,45 +13,67 @@ const headerSwitcherItems = [
 ];
 %>
 
-<header class="site-header">
+<header class="site-header<%= currentPageKey === 'home' ? ' site-header--home' : '' %>">
   <div class="site-header__inner">
-    <a class="site-brand" href="<%= rootHref %>" aria-label="Паллет Сервис">
-      <img
-        alt=""
-        aria-hidden="true"
-        class="site-brand__mark"
-        src="<%= rootHref %>assets/logo-mark.webp"
-      />
+    <% if (currentPageKey !== "home") { %>
+      <a class="site-brand" href="<%= rootHref %>" aria-label="Паллет Сервис">
+        <img
+          alt=""
+          aria-hidden="true"
+          class="site-brand__mark"
+          src="<%= rootHref %>assets/logo-mark.webp"
+        />
 
-      <span class="site-brand__text">
-        <strong>ПАЛЛЕТ СЕРВИС</strong>
-        <em>Продажа и покупка поддонов</em>
-      </span>
-    </a>
+        <span class="site-brand__text">
+          <strong>ПАЛЛЕТ СЕРВИС</strong>
+          <em>Продажа и покупка поддонов</em>
+        </span>
+      </a>
+    <% } %>
 
-    <nav class="site-nav" aria-label="Основная навигация">
-      <% headerNavItems.forEach((item) => { %>
-        <a href="<%= item.href %>"><%= item.label %></a>
-      <% }) %>
-    </nav>
+    <% if (currentPageKey !== "home") { %>
+      <button
+        class="site-header__toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="site-header-menu"
+        aria-label="Открыть меню"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    <% } %>
 
-    <div class="site-switcher" aria-label="Переключение между видами поддонов">
-      <% headerSwitcherItems.forEach((item) => { %>
-        <a
-          class="site-switcher__link<%= currentPageKey === item.key ? ' site-switcher__link--active' : '' %>"
-          href="<%= item.href %>"
-        >
-          <%= item.label %>
+    <div class="site-header__menu" id="site-header-menu">
+      <% if (currentPageKey !== "home") { %>
+        <nav class="site-nav" aria-label="Основная навигация">
+          <% headerNavItems.forEach((item) => { %>
+            <a href="<%= item.href %>"><%= item.label %></a>
+          <% }) %>
+        </nav>
+      <% } %>
+
+      <div class="site-switcher" aria-label="Переключение между видами поддонов">
+        <% headerSwitcherItems.forEach((item) => { %>
+          <a
+            class="site-switcher__link<%= currentPageKey === item.key ? ' site-switcher__link--active' : '' %>"
+            href="<%= item.href %>"
+          >
+            <%= item.label %>
+          </a>
+        <% }) %>
+      </div>
+
+      <% if (currentPageKey !== "home") { %>
+        <a class="site-phone" href="tel:+375291234567">
+          <span class="site-phone__icon" aria-hidden="true">✆</span>
+          <span class="site-phone__text">
+            <strong>+375 (29) 123-45-67</strong>
+            <em>Ежедневно с 9:00 до 18:00</em>
+          </span>
         </a>
-      <% }) %>
+      <% } %>
     </div>
-
-    <a class="site-phone" href="tel:+375291234567">
-      <span class="site-phone__icon" aria-hidden="true">✆</span>
-      <span class="site-phone__text">
-        <strong>+375 (29) 123-45-67</strong>
-        <em>Ежедневно с 9:00 до 18:00</em>
-      </span>
-    </a>
   </div>
 </header>
