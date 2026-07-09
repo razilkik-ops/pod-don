@@ -42,7 +42,11 @@ const specIcons = {
 const sharedActions = {
   requestHref: "#request",
   priceHref: "#price",
-  phoneHref: "tel:+375291234567",
+};
+
+const phoneContactsByPage = {
+  new: { href: "tel:+375296974177", label: "+375 (29) 697-41-77" },
+  used: { href: "tel:+375296974777", label: "+375 (29) 697-47-77" },
 };
 
 const emptyRequestForm = {
@@ -828,6 +832,7 @@ export function App({ pageKey = "home" }) {
   }
 
   const page = resolvedPageConfigs[pageKey] ?? resolvedPageConfigs.new;
+  const pagePhone = phoneContactsByPage[pageKey] ?? phoneContactsByPage.new;
   const requestSectionLabel = pageKey === "used" ? "Б/у" : pageKey === "new" ? "Новые" : "";
   const selectedProduct = page.catalogItems.find((item) => item.id === selectedProductId) ?? null;
   const activeThickness =
@@ -971,7 +976,7 @@ export function App({ pageKey = "home" }) {
                 <img alt="" aria-hidden="true" src={withBase("/assets/generated/icon-arrow-right.webp")} />
               </button>
 
-              <a className="hero-button hero-button--ghost" href={sharedActions.phoneHref}>
+              <a className="hero-button hero-button--ghost" href={pagePhone.href}>
                 <span>{page.hero.secondaryAction}</span>
                 <img alt="" aria-hidden="true" src={withBase("/assets/generated/detail/phone.webp")} />
               </a>
@@ -1167,7 +1172,7 @@ export function App({ pageKey = "home" }) {
                     <img alt="" aria-hidden="true" src={withBase("/assets/generated/icon-arrow-right.webp")} />
                   </button>
 
-                  <a className="product-detail-card__action product-detail-card__action--ghost" href={sharedActions.phoneHref}>
+                  <a className="product-detail-card__action product-detail-card__action--ghost" href={pagePhone.href}>
                     <img alt="" aria-hidden="true" src={withBase("/assets/generated/detail/phone.webp")} />
                     <span>Позвонить</span>
                   </a>
@@ -1266,7 +1271,7 @@ export function App({ pageKey = "home" }) {
                       className="request-modal__input"
                       name="phone"
                       onChange={handleRequestFieldChange}
-                      placeholder="+375 (29) 123-45-67"
+                      placeholder={pagePhone.label}
                       required
                       type="tel"
                       value={requestForm.phone}
@@ -1291,7 +1296,7 @@ export function App({ pageKey = "home" }) {
                       <img alt="" aria-hidden="true" src={withBase("/assets/generated/icon-arrow-right.webp")} />
                     </button>
 
-                    <a className="request-modal__ghost" href={sharedActions.phoneHref}>
+                    <a className="request-modal__ghost" href={pagePhone.href}>
                       <img alt="" aria-hidden="true" src={withBase("/assets/generated/detail/phone.webp")} />
                       <span>Позвонить</span>
                     </a>
