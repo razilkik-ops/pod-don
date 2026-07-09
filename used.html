@@ -10,7 +10,7 @@ const pageKey = "used";
     <title><%= pageTitle %></title>
   </head>
   <body data-page-key="used">
-    <%- include("/src/templates/partials/header.ejs", { pageKey, basePath: "/" }) %>
+    <%- include("/src/templates/partials/header.ejs", { pageKey, basePath }) %>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
