@@ -16,18 +16,8 @@ const headerSwitcherItems = [
 <header class="site-header<%= currentPageKey === 'home' ? ' site-header--home' : '' %>">
   <div class="site-header__inner">
     <% if (currentPageKey !== "home") { %>
-      <a class="site-brand" href="<%= rootHref %>" aria-label="Паллет Сервис">
-        <img
-          alt=""
-          aria-hidden="true"
-          class="site-brand__mark"
-          src="<%= rootHref %>assets/logo-mark.webp"
-        />
-
-        <span class="site-brand__text">
-          <strong>ПАЛЛЕТ СЕРВИС</strong>
-          <em>Продажа и покупка поддонов</em>
-        </span>
+      <a class="site-brand site-brand--text-only" href="<%= rootHref %>" aria-label="Вернуться на страницу выбора поддонов">
+        <span class="site-brand__word">Поддоны</span>
       </a>
     <% } %>
 

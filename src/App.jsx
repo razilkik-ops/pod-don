@@ -58,34 +58,40 @@ const emptyRequestContext = {
   deck: "",
 };
 
-const newVariantAssetVersion = "2026-07-09-6boards-fix-2";
+const newVariantAssetVersion = "2026-07-09-cleaned-decks-1";
+const usedVariantAssetVersion = "2026-07-09-used-transparent-cutouts-1";
 const compactText = (value = "") => value.replace(/\s+/g, " ").trim();
 const versionAsset = (path = "", version = newVariantAssetVersion) => `${path}?v=${version}`;
-const makeVariantKey = (thickness = "", deck = "") => [compactText(thickness), compactText(deck)].filter(Boolean).join("::");
+const versionUsedAsset = (path = "", version = usedVariantAssetVersion) => `${path}?v=${version}`;
+const makeVariantKey = (deck = "") => compactText(deck);
 const deckSlugMap = {
   "5 досок": "5boards",
   "6 досок": "6boards",
   "Сплошной настил": "soliddeck",
   "Под запрос": "custom",
 };
-const makeThicknessSlug = (thickness = "") => compactText(thickness).toLowerCase().replace(/\s+/g, "").replace("мм", "mm");
-const buildNewVariantImageMap = (size, thicknessOptions = [], deckOptions = []) =>
+const buildNewVariantImageMap = (size, deckOptions = []) =>
   Object.fromEntries(
-    thicknessOptions.flatMap((thickness) =>
-      deckOptions.map((deck) => [
-        makeVariantKey(thickness, deck),
-        versionAsset(
-          `/assets/generated/variants/new-cropped/new-${size}-${makeThicknessSlug(thickness)}-${deckSlugMap[deck]}.webp`,
-        ),
-      ]),
-    ),
+    deckOptions.map((deck) => [
+      makeVariantKey(deck),
+      versionAsset(
+        `/assets/generated/variants/new-cleaned/new-${size}-22mm-${deckSlugMap[deck]}.webp`,
+      ),
+    ]),
   );
-const getVariantImageForProduct = (product, thickness = "", deck = "") => {
+const buildUsedVariantImageMap = (size, deckOptions = []) =>
+  Object.fromEntries(
+    deckOptions.map((deck) => [
+      makeVariantKey(deck),
+      versionUsedAsset(`/assets/generated/used-variants/used-${size}-${deckSlugMap[deck]}.webp`),
+    ]),
+  );
+const getVariantImageForProduct = (product, deck = "") => {
   if (!product?.variantImages) {
     return "";
   }
 
-  return product.variantImages[makeVariantKey(thickness, deck)] || "";
+  return product.variantImages[makeVariantKey(deck)] || "";
 };
 
 const homeHighlights = [
@@ -151,8 +157,8 @@ const pageConfigs = {
         summary: "Новый поддон\nдля склада и логистики",
         detailLead:
           "Новый поддон размера 120×80 см.\nПодходит для складских, транспортных\nи производственных задач.",
-        image: versionAsset("/assets/generated/variants/new-cropped/new-120x80-22mm-5boards.webp"),
-        gallery: [versionAsset("/assets/generated/variants/new-cropped/new-120x80-22mm-5boards.webp")],
+        image: versionAsset("/assets/generated/variants/new-cleaned/new-120x80-22mm-5boards.webp"),
+        gallery: [versionAsset("/assets/generated/variants/new-cleaned/new-120x80-22mm-5boards.webp")],
         price: "32 BYN",
         priceNote: "Точная стоимость уточняется по телефону",
         availability: "В наличии",
@@ -162,7 +168,7 @@ const pageConfigs = {
         defaultThickness: "22 мм",
         deckOptions: ["5 досок", "6 досок"],
         defaultDeck: "5 досок",
-        variantImages: buildNewVariantImageMap("120x80", ["19 мм", "20 мм", "22 мм"], ["5 досок", "6 досок"]),
+        variantImages: buildNewVariantImageMap("120x80", ["5 досок", "6 досок"]),
         specs: [
           { icon: specIcons.thickness, label: "Толщина доски: 19 / 20 / 22 мм" },
           { icon: specIcons.deck, label: "Настил: 5 или 6 досок" },
@@ -184,8 +190,8 @@ const pageConfigs = {
         summary: "Новый поддон\nдля хранения и отгрузки",
         detailLead:
           "Новый поддон размера 114×114 см.\nУдобен для хранения, комплектации\nи отгрузки продукции.",
-        image: versionAsset("/assets/generated/variants/new-cropped/new-114x114-22mm-5boards.webp"),
-        gallery: [versionAsset("/assets/generated/variants/new-cropped/new-114x114-22mm-5boards.webp")],
+        image: versionAsset("/assets/generated/variants/new-cleaned/new-114x114-22mm-5boards.webp"),
+        gallery: [versionAsset("/assets/generated/variants/new-cleaned/new-114x114-22mm-5boards.webp")],
         price: "36 BYN",
         priceNote: "Точная стоимость зависит от объёма партии",
         availability: "В наличии",
@@ -195,7 +201,7 @@ const pageConfigs = {
         defaultThickness: "22 мм",
         deckOptions: ["5 досок", "6 досок"],
         defaultDeck: "5 досок",
-        variantImages: buildNewVariantImageMap("114x114", ["19 мм", "20 мм", "22 мм"], ["5 досок", "6 досок"]),
+        variantImages: buildNewVariantImageMap("114x114", ["5 досок", "6 досок"]),
         specs: [
           { icon: specIcons.thickness, label: "Толщина доски: 19 / 20 / 22 мм" },
           { icon: specIcons.deck, label: "Настил: 5 или 6 досок" },
@@ -217,8 +223,8 @@ const pageConfigs = {
         summary: "Новый поддон\nдля складской логистики",
         detailLead:
           "Новый поддон размера 120×100 см.\nПодходит для склада, логистики\nи комплектации грузов.",
-        image: versionAsset("/assets/generated/variants/new-cropped/new-120x100-22mm-5boards.webp"),
-        gallery: [versionAsset("/assets/generated/variants/new-cropped/new-120x100-22mm-5boards.webp")],
+        image: versionAsset("/assets/generated/variants/new-cleaned/new-120x100-22mm-5boards.webp"),
+        gallery: [versionAsset("/assets/generated/variants/new-cleaned/new-120x100-22mm-5boards.webp")],
         price: "27 BYN",
         priceNote: "Точная стоимость зависит от объёма партии",
         availability: "В наличии",
@@ -228,7 +234,7 @@ const pageConfigs = {
         defaultThickness: "22 мм",
         deckOptions: ["5 досок", "6 досок", "Сплошной настил"],
         defaultDeck: "5 досок",
-        variantImages: buildNewVariantImageMap("120x100", ["19 мм", "20 мм", "22 мм"], ["5 досок", "6 досок", "Сплошной настил"]),
+        variantImages: buildNewVariantImageMap("120x100", ["5 досок", "6 досок", "Сплошной настил"]),
         specs: [
           { icon: specIcons.thickness, label: "Толщина доски: 19 / 20 / 22 мм" },
           { icon: specIcons.deck, label: "Настил: 5 / 6 / сплошной" },
@@ -250,8 +256,8 @@ const pageConfigs = {
         summary: "Новый поддон\nдля крупного формата груза",
         detailLead:
           "Новый поддон размера 120×120 см.\nПодходит для крупного формата груза,\nсклада и отгрузки.",
-        image: versionAsset("/assets/generated/variants/new-cropped/new-120x120-22mm-5boards.webp"),
-        gallery: [versionAsset("/assets/generated/variants/new-cropped/new-120x120-22mm-5boards.webp")],
+        image: versionAsset("/assets/generated/variants/new-cleaned/new-120x120-22mm-5boards.webp"),
+        gallery: [versionAsset("/assets/generated/variants/new-cleaned/new-120x120-22mm-5boards.webp")],
         price: "41 BYN",
         priceNote: "Точная стоимость зависит от объёма партии",
         availability: "В наличии",
@@ -261,7 +267,7 @@ const pageConfigs = {
         defaultThickness: "22 мм",
         deckOptions: ["5 досок", "6 досок", "Сплошной настил"],
         defaultDeck: "5 досок",
-        variantImages: buildNewVariantImageMap("120x120", ["19 мм", "20 мм", "22 мм"], ["5 досок", "6 досок", "Сплошной настил"]),
+        variantImages: buildNewVariantImageMap("120x120", ["5 досок", "6 досок", "Сплошной настил"]),
         specs: [
           { icon: specIcons.thickness, label: "Толщина доски: 19 / 20 / 22 мм" },
           { icon: specIcons.deck, label: "Настил: 5 / 6 / сплошной" },
@@ -441,11 +447,10 @@ const pageConfigs = {
         summary: "5 или 6 досок\nверхнего настила",
         detailLead:
           "Б/у поддон размера 120x800 мм.\nВарианты исполнения: верхний настил 5 или 6 досок,\nтолщина доски 19, 20 или 22 мм.",
-        image: "/assets/generated/used/used-card-1.webp",
+        image: versionUsedAsset("/assets/generated/used-variants/used-120x800-5boards.webp"),
         gallery: [
-          "/assets/generated/used/used-hero.webp",
-          "/assets/generated/used/used-card-1.webp",
-          "/assets/generated/used/used-quality-closeup.webp",
+          versionUsedAsset("/assets/generated/used-variants/used-120x800-5boards.webp"),
+          versionUsedAsset("/assets/generated/used-variants/used-120x800-6boards.webp"),
         ],
         cardPrice: "24 BYN",
         price: "24 BYN",
@@ -457,6 +462,7 @@ const pageConfigs = {
         defaultThickness: "22 мм",
         deckOptions: ["5 досок", "6 досок"],
         defaultDeck: "5 досок",
+        variantImages: buildUsedVariantImageMap("120x800", ["5 досок", "6 досок"]),
         specs: [
           { icon: specIcons.thickness, label: "Толщина доски: 19/20/22 мм" },
           { icon: specIcons.deck, label: "Настил: 5 или 6 досок" },
@@ -477,11 +483,11 @@ const pageConfigs = {
         summary: "5, 6 досок или\nсплошной настил",
         detailLead:
           "Б/у поддон размера 120x1000 мм.\nВарианты исполнения: верхний настил 5 досок,\n6 досок или сплошной настил без промежутков.",
-        image: "/assets/generated/used/used-card-2.webp",
+        image: versionUsedAsset("/assets/generated/used-variants/used-120x100-5boards.webp"),
         gallery: [
-          "/assets/generated/used/used-card-2.webp",
-          "/assets/generated/used/used-hero.webp",
-          "/assets/generated/used/used-quality-closeup.webp",
+          versionUsedAsset("/assets/generated/used-variants/used-120x100-5boards.webp"),
+          versionUsedAsset("/assets/generated/used-variants/used-120x100-6boards.webp"),
+          versionUsedAsset("/assets/generated/used-variants/used-120x100-soliddeck.webp"),
         ],
         cardPrice: "28 BYN",
         price: "28 BYN",
@@ -493,6 +499,7 @@ const pageConfigs = {
         defaultThickness: "22 мм",
         deckOptions: ["5 досок", "6 досок", "Сплошной настил"],
         defaultDeck: "5 досок",
+        variantImages: buildUsedVariantImageMap("120x100", ["5 досок", "6 досок", "Сплошной настил"]),
         specs: [
           { icon: specIcons.thickness, label: "Толщина доски: 19/20/22 мм" },
           { icon: specIcons.deck, label: "Настил: 5 / 6 / сплошной" },
@@ -513,11 +520,11 @@ const pageConfigs = {
         summary: "5, 6 досок или\nсплошной настил",
         detailLead:
           "Б/у поддон размера 120x1200 мм.\nВарианты исполнения: верхний настил 5 досок,\n6 досок или сплошной настил без промежутков.",
-        image: "/assets/generated/used/used-card-3.webp",
+        image: versionUsedAsset("/assets/generated/used-variants/used-120x120-5boards.webp"),
         gallery: [
-          "/assets/generated/used/used-card-3.webp",
-          "/assets/generated/used/used-card-1.webp",
-          "/assets/generated/used/used-quality-closeup.webp",
+          versionUsedAsset("/assets/generated/used-variants/used-120x120-5boards.webp"),
+          versionUsedAsset("/assets/generated/used-variants/used-120x120-6boards.webp"),
+          versionUsedAsset("/assets/generated/used-variants/used-120x120-soliddeck.webp"),
         ],
         cardPrice: "30 BYN",
         price: "30 BYN",
@@ -529,6 +536,7 @@ const pageConfigs = {
         defaultThickness: "22 мм",
         deckOptions: ["5 досок", "6 досок", "Сплошной настил"],
         defaultDeck: "5 досок",
+        variantImages: buildUsedVariantImageMap("120x120", ["5 досок", "6 досок", "Сплошной настил"]),
         specs: [
           { icon: specIcons.thickness, label: "Толщина доски: 19/20/22 мм" },
           { icon: specIcons.deck, label: "Настил: 5 / 6 / сплошной" },
@@ -549,11 +557,9 @@ const pageConfigs = {
         summary: "1 сорт и 2 сорт,\nEUR / EPAL / UIC",
         detailLead:
           "Б/у европоддоны с клеймом размером 120x80.\nЕсть 1 сорт и 2 сорт: светлый и тёмный.\nМаркировка EUR, EPAL, UIC.",
-        image: "/assets/pallet-used.webp",
+        image: versionUsedAsset("/assets/generated/used-variants/used-euro-stack.webp"),
         gallery: [
-          "/assets/pallet-used.webp",
-          "/assets/generated/used/used-hero.webp",
-          "/assets/generated/used/used-quality-closeup.webp",
+          versionUsedAsset("/assets/generated/used-variants/used-euro-stack.webp"),
         ],
         cardPrice: "32 BYN",
         price: "32 BYN",
@@ -827,7 +833,7 @@ export function App({ pageKey = "home" }) {
   const activeThickness =
     selectedThickness || selectedProduct?.defaultThickness || selectedProduct?.thicknessOptions?.[0] || "";
   const activeDeck = selectedDeck || selectedProduct?.defaultDeck || selectedProduct?.deckOptions?.[0] || "";
-  const activeVariantImage = getVariantImageForProduct(selectedProduct, activeThickness, activeDeck);
+  const activeVariantImage = getVariantImageForProduct(selectedProduct, activeDeck);
   const selectedGallery = activeVariantImage ? [activeVariantImage] : selectedProduct?.gallery ?? [];
   const activeGalleryImage = selectedGallery[activeGalleryIndex] ?? selectedGallery[0] ?? "";
 
