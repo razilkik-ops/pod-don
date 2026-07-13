@@ -49,10 +49,61 @@ const phoneContactsByPage = {
   used: { href: "tel:+375296974777", label: "+375 (29) 697-47-77" },
 };
 
+const emailContactsByPage = {
+  new: "Derekon.minsk@gmail.by",
+  used: "1041313@gmail.com",
+};
+
+const sharedLogistics = [
+  {
+    icon: "/assets/generated/detail/pin.webp",
+    title: "Самовывоз со склада",
+    text: "г. Минск, ул. Ванеева, 29",
+  },
+  {
+    icon: "/assets/generated/bottom-icon-truck.webp",
+    title: "Бесплатная доставка",
+    text: "По Минску в пределах МКАД и до 10 км за МКАД. Дальше стоимость рассчитывается с учётом платных дорог и других расходов. Возможна экономия за счёт обратной загрузки от фабрики или производителя.",
+  },
+  {
+    icon: "/assets/generated/bottom-icon-boxes.webp",
+    title: "Собственный транспорт",
+    text: "Вместительная фура объёмом 90 м³ для крупных партий.",
+  },
+];
+
+const sharedPickup = "Самовывоз: г. Минск,\nул. Ванеева, 29";
+const sharedDelivery = "Бесплатно по Минску, в пределах МКАД и до 10 км за МКАД";
+
+const footerSocialLinks = [
+  {
+    label: "Telegram",
+    icon: (
+      <svg aria-hidden="true" viewBox="0 0 24 24">
+        <path d="M21.8 4.1 18.5 20c-.2.9-.9 1.1-1.6.7l-4.8-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.3-4.9 8.9-8c.4-.3-.1-.5-.6-.2L6.5 13.7 1.8 12.2c-1-.3-1-1 .2-1.5L20.3 3.6c.9-.3 1.7.2 1.5.5Z" />
+      </svg>
+    ),
+  },
+  {
+    label: "Instagram",
+    icon: (
+      <svg aria-hidden="true" viewBox="0 0 24 24">
+        <path d="M8 2h8a6 6 0 0 1 6 6v8a6 6 0 0 1-6 6H8a6 6 0 0 1-6-6V8a6 6 0 0 1 6-6Zm0 2.2A3.8 3.8 0 0 0 4.2 8v8A3.8 3.8 0 0 0 8 19.8h8a3.8 3.8 0 0 0 3.8-3.8V8A3.8 3.8 0 0 0 16 4.2H8Zm4 3.3a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9Zm0 2.2a2.3 2.3 0 1 0 0 4.6 2.3 2.3 0 0 0 0-4.6Zm4.8-2.7a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2Z" />
+      </svg>
+    ),
+  },
+];
+
 const emptyRequestForm = {
   name: "",
   phone: "",
+  email: "",
   comment: "",
+  length: "",
+  width: "",
+  height: "",
+  quantity: "",
+  fileName: "",
 };
 
 const emptyRequestContext = {
@@ -96,6 +147,24 @@ const getVariantImageForProduct = (product, deck = "") => {
   }
 
   return product.variantImages[makeVariantKey(deck)] || "";
+};
+
+const formatByn = (value) => {
+  if (typeof value !== "number") {
+    return value || "";
+  }
+
+  return `${Number.isInteger(value) ? value : value.toFixed(2).replace(".", ",")} BYN`;
+};
+
+const getCalculatedPrice = (product, thickness = "", deck = "") => {
+  if (typeof product?.basePrice !== "number") {
+    return product?.price || "";
+  }
+
+  const thicknessIndex = Math.max(0, product.thicknessOptions?.indexOf(thickness) ?? 0);
+  const deckIndex = Math.max(0, product.deckOptions?.indexOf(deck) ?? 0);
+  return formatByn(product.basePrice + (thicknessIndex + deckIndex) * 0.3);
 };
 
 const homeHighlights = [
@@ -156,20 +225,21 @@ const pageConfigs = {
     catalogItems: [
       {
         id: "euro-1200x800",
-        title: "120x80",
-        detailTitle: "120x80",
+        title: "1200x800",
+        detailTitle: "1200x800",
         summary: "Новый поддон\nдля склада и логистики",
         detailLead:
-          "Новый поддон размера 120×80 см.\nПодходит для складских, транспортных\nи производственных задач.",
+          "Новый поддон размера 1200×800 мм.\nПодходит для складских, транспортных\nи производственных задач.",
         image: versionAsset("/assets/generated/variants/new-cleaned/new-120x80-22mm-5boards.webp"),
         gallery: [versionAsset("/assets/generated/variants/new-cleaned/new-120x80-22mm-5boards.webp")],
-        price: "32 BYN",
-        priceNote: "Точная стоимость уточняется по телефону",
+        basePrice: 11,
+        cardPrice: "11 BYN",
+        priceNote: "Цена указана без учёта НДС. Каждый следующий вариант толщины или настила добавляет 0,30 BYN.",
         availability: "В наличии",
-        pickup: "Самовывоз: г. Минск,\nул. Промышленная, 14",
-        delivery: "Доставка\nпо всей Беларуси",
+        pickup: sharedPickup,
+        delivery: sharedDelivery,
         thicknessOptions: ["19 мм", "20 мм", "22 мм"],
-        defaultThickness: "22 мм",
+        defaultThickness: "19 мм",
         deckOptions: ["5 досок", "6 досок"],
         defaultDeck: "5 досок",
         variantImages: buildNewVariantImageMap("120x80", ["5 досок", "6 досок"]),
@@ -189,20 +259,21 @@ const pageConfigs = {
       },
       {
         id: "finnish-1200x1000",
-        title: "114x114",
-        detailTitle: "114x114",
+        title: "1140x1140",
+        detailTitle: "1140x1140",
         summary: "Новый поддон\nдля хранения и отгрузки",
         detailLead:
-          "Новый поддон размера 114×114 см.\nУдобен для хранения, комплектации\nи отгрузки продукции.",
+          "Новый поддон размера 1140×1140 мм.\nУдобен для хранения, комплектации\nи отгрузки продукции.",
         image: versionAsset("/assets/generated/variants/new-cleaned/new-114x114-22mm-5boards.webp"),
         gallery: [versionAsset("/assets/generated/variants/new-cleaned/new-114x114-22mm-5boards.webp")],
-        price: "36 BYN",
-        priceNote: "Точная стоимость зависит от объёма партии",
+        basePrice: 11,
+        cardPrice: "11 BYN",
+        priceNote: "Цена указана без учёта НДС. Каждый следующий вариант толщины или настила добавляет 0,30 BYN.",
         availability: "В наличии",
-        pickup: "Самовывоз: г. Минск,\nул. Промышленная, 14",
-        delivery: "Доставка\nпо всей Беларуси",
+        pickup: sharedPickup,
+        delivery: sharedDelivery,
         thicknessOptions: ["19 мм", "20 мм", "22 мм"],
-        defaultThickness: "22 мм",
+        defaultThickness: "19 мм",
         deckOptions: ["5 досок", "6 досок"],
         defaultDeck: "5 досок",
         variantImages: buildNewVariantImageMap("114x114", ["5 досок", "6 досок"]),
@@ -222,20 +293,21 @@ const pageConfigs = {
       },
       {
         id: "lightweight-1200x800",
-        title: "120x100",
-        detailTitle: "120x100",
+        title: "1200x1000",
+        detailTitle: "1200x1000",
         summary: "Новый поддон\nдля складской логистики",
         detailLead:
-          "Новый поддон размера 120×100 см.\nПодходит для склада, логистики\nи комплектации грузов.",
+          "Новый поддон размера 1200×1000 мм.\nПодходит для склада, логистики\nи комплектации грузов.",
         image: versionAsset("/assets/generated/variants/new-cleaned/new-120x100-22mm-5boards.webp"),
         gallery: [versionAsset("/assets/generated/variants/new-cleaned/new-120x100-22mm-5boards.webp")],
-        price: "27 BYN",
-        priceNote: "Точная стоимость зависит от объёма партии",
+        basePrice: 11,
+        cardPrice: "11 BYN",
+        priceNote: "Цена указана без учёта НДС. Каждый следующий вариант толщины или настила добавляет 0,30 BYN.",
         availability: "В наличии",
-        pickup: "Самовывоз: г. Минск,\nул. Промышленная, 14",
-        delivery: "Доставка\nпо всей Беларуси",
+        pickup: sharedPickup,
+        delivery: sharedDelivery,
         thicknessOptions: ["19 мм", "20 мм", "22 мм"],
-        defaultThickness: "22 мм",
+        defaultThickness: "19 мм",
         deckOptions: ["5 досок", "6 досок", "Сплошной настил"],
         defaultDeck: "5 досок",
         variantImages: buildNewVariantImageMap("120x100", ["5 досок", "6 досок", "Сплошной настил"]),
@@ -255,20 +327,21 @@ const pageConfigs = {
       },
       {
         id: "reinforced-1200x800",
-        title: "120x120",
-        detailTitle: "120x120",
+        title: "1200x1200",
+        detailTitle: "1200x1200",
         summary: "Новый поддон\nдля крупного формата груза",
         detailLead:
-          "Новый поддон размера 120×120 см.\nПодходит для крупного формата груза,\nсклада и отгрузки.",
+          "Новый поддон размера 1200×1200 мм.\nПодходит для крупного формата груза,\nсклада и отгрузки.",
         image: versionAsset("/assets/generated/variants/new-cleaned/new-120x120-22mm-5boards.webp"),
         gallery: [versionAsset("/assets/generated/variants/new-cleaned/new-120x120-22mm-5boards.webp")],
-        price: "41 BYN",
-        priceNote: "Точная стоимость зависит от объёма партии",
+        basePrice: 11,
+        cardPrice: "11 BYN",
+        priceNote: "Цена указана без учёта НДС. Каждый следующий вариант толщины или настила добавляет 0,30 BYN.",
         availability: "В наличии",
-        pickup: "Самовывоз: г. Минск,\nул. Промышленная, 14",
-        delivery: "Доставка\nпо всей Беларуси",
+        pickup: sharedPickup,
+        delivery: sharedDelivery,
         thicknessOptions: ["19 мм", "20 мм", "22 мм"],
-        defaultThickness: "22 мм",
+        defaultThickness: "19 мм",
         deckOptions: ["5 досок", "6 досок", "Сплошной настил"],
         defaultDeck: "5 досок",
         variantImages: buildNewVariantImageMap("120x120", ["5 досок", "6 досок", "Сплошной настил"]),
@@ -287,6 +360,88 @@ const pageConfigs = {
         ],
       },
       {
+        id: "winter-pallet",
+        title: "Зимние поддоны",
+        detailTitle: "Зимние поддоны",
+        summary: "Усиленная конструкция\nдля хранения на холоде",
+        detailLead:
+          "Поддоны из сухой хвойной древесины для холодных складов и зимней эксплуатации.\nКонструкцию и размер подбираем под нагрузку.",
+        image: "/assets/generated/product-additions/winter-pallet.webp",
+        gallery: ["/assets/generated/product-additions/winter-pallet.webp"],
+        basePrice: 11,
+        cardPrice: "11 BYN",
+        priceNote: "Цена указана без учёта НДС и зависит от размера, настила и объёма партии.",
+        availability: "Под заказ",
+        pickup: sharedPickup,
+        delivery: sharedDelivery,
+        thicknessOptions: ["19 мм", "20 мм", "22 мм"],
+        defaultThickness: "19 мм",
+        deckOptions: ["5 досок", "6 досок", "Сплошной настил"],
+        defaultDeck: "5 досок",
+        specs: [
+          { icon: specIcons.thickness, label: "Толщина доски: 19 / 20 / 22 мм" },
+          { icon: specIcons.deck, label: "Настил: 5 / 6 / сплошной" },
+          { icon: specIcons.quality, label: "Для холодных складов и улицы" },
+          { icon: specIcons.material, label: "Материал: сухие хвойные породы" },
+        ],
+        detailSpecs: [
+          { icon: specIcons.size, label: "Размер: по задаче клиента" },
+          { icon: specIcons.weight, label: "Нагрузка: рассчитывается под груз" },
+          { icon: specIcons.material, label: "Материал: сухие хвойные породы" },
+          { icon: specIcons.quality, label: "Усиленные узлы для зимней эксплуатации" },
+        ],
+      },
+      {
+        id: "new-plastic-1200x800",
+        title: "Пластиковый 1200x800",
+        detailTitle: "Пластиковый\n1200x800",
+        summary: "Новый пластиковый поддон\nдля чистых производств",
+        detailLead:
+          "Новый пластиковый поддон размером 1200×800 мм.\nНе впитывает влагу, легко очищается и подходит для многократного использования.",
+        image: "/assets/generated/product-additions/new-plastic-1200x800.webp",
+        gallery: ["/assets/generated/product-additions/new-plastic-1200x800.webp"],
+        price: "По запросу",
+        priceNote: "Стоимость и наличие уточняются по телефону.",
+        availability: "Уточнить наличие",
+        pickup: sharedPickup,
+        delivery: sharedDelivery,
+        specs: [
+          { icon: specIcons.size, label: "Размер: 1200×800 мм" },
+          { icon: specIcons.material, label: "Материал: HDPE-пластик" },
+          { icon: specIcons.quality, label: "Моющийся и влагостойкий" },
+        ],
+        detailSpecs: [
+          { icon: specIcons.size, label: "Размер: 1200×800 мм" },
+          { icon: specIcons.material, label: "Материал: HDPE-пластик" },
+          { icon: specIcons.quality, label: "Для многократного использования" },
+        ],
+      },
+      {
+        id: "new-plastic-1200x1000",
+        title: "Пластиковый 1200x1000",
+        detailTitle: "Пластиковый\n1200x1000",
+        summary: "Новый пластиковый поддон\nувеличенного формата",
+        detailLead:
+          "Новый пластиковый поддон размером 1200×1000 мм.\nУстойчив к влаге и подходит для склада, пищевых и производственных задач.",
+        image: "/assets/generated/product-additions/new-plastic-1200x1000.webp",
+        gallery: ["/assets/generated/product-additions/new-plastic-1200x1000.webp"],
+        price: "По запросу",
+        priceNote: "Стоимость и наличие уточняются по телефону.",
+        availability: "Уточнить наличие",
+        pickup: sharedPickup,
+        delivery: sharedDelivery,
+        specs: [
+          { icon: specIcons.size, label: "Размер: 1200×1000 мм" },
+          { icon: specIcons.material, label: "Материал: HDPE-пластик" },
+          { icon: specIcons.quality, label: "Моющийся и влагостойкий" },
+        ],
+        detailSpecs: [
+          { icon: specIcons.size, label: "Размер: 1200×1000 мм" },
+          { icon: specIcons.material, label: "Материал: HDPE-пластик" },
+          { icon: specIcons.quality, label: "Для многократного использования" },
+        ],
+      },
+      {
         id: "custom-size-order",
         title: "Заказать другой размер",
         detailTitle: "Заказать\nдругой размер",
@@ -298,8 +453,10 @@ const pageConfigs = {
         price: "По запросу",
         priceNote: "Стоимость зависит от размера, толщины доски и объёма партии",
         availability: "Под заказ",
-        pickup: "Самовывоз: г. Минск,\nул. Промышленная, 14",
-        delivery: "Доставка\nпо всей Беларуси",
+        pickup: sharedPickup,
+        delivery: sharedDelivery,
+        requestOnly: true,
+        actionLabel: "Описать заказ",
         thicknessOptions: ["22 мм", "25 мм", "Под запрос"],
         defaultThickness: "Под запрос",
         deckOptions: ["5 досок", "6 досок", "Сплошной настил", "Под запрос"],
@@ -341,6 +498,14 @@ const pageConfigs = {
         text: "Быстрая и надёжная доставка\nв любую точку страны",
       },
     ],
+    serviceFeature: {
+      eyebrow: "Дополнительная услуга",
+      title: "Фитосанитарная обработка",
+      text: "Подготовим поддоны для экспортных поставок и предоставим необходимую маркировку по согласованию.",
+      primaryLabel: "Заказать обработку",
+      requestProduct: "Фитосанитарная обработка новых поддонов",
+    },
+    logistics: sharedLogistics,
     detailBenefits: [
       {
         icon: "/assets/generated/bottom-icon-shield.webp",
@@ -409,6 +574,14 @@ const pageConfigs = {
           label: "БИК",
           value: "ALFABY2X",
         },
+        {
+          label: "Телефон",
+          value: "+375 (29) 697-41-77",
+        },
+        {
+          label: "Email",
+          value: "Derekon.minsk@gmail.by",
+        },
       ],
     },
   },
@@ -446,24 +619,24 @@ const pageConfigs = {
     catalogItems: [
       {
         id: "used-euro-1200x800",
-        title: "120x800",
-        detailTitle: "120x800",
+        title: "1200x800",
+        detailTitle: "1200x800",
         summary: "5 или 6 досок\nверхнего настила",
         detailLead:
-          "Б/у поддон размера 120x800 мм.\nВарианты исполнения: верхний настил 5 или 6 досок,\nтолщина доски 19, 20 или 22 мм.",
+          "Б/у поддон размера 1200×800 мм.\nВарианты исполнения: верхний настил 5 или 6 досок,\nтолщина доски 19, 20 или 22 мм.",
         image: versionUsedAsset("/assets/generated/used-variants/used-120x800-5boards.webp"),
         gallery: [
           versionUsedAsset("/assets/generated/used-variants/used-120x800-5boards.webp"),
           versionUsedAsset("/assets/generated/used-variants/used-120x800-6boards.webp"),
         ],
-        cardPrice: "24 BYN",
-        price: "24 BYN",
-        priceNote: "Точная стоимость зависит от состояния и объёма партии",
+        basePrice: 6.5,
+        cardPrice: "6,50 BYN",
+        priceNote: "Цена указана без учёта НДС. Каждый следующий вариант толщины или настила добавляет 0,30 BYN.",
         availability: "Готовы к отгрузке",
-        pickup: "Самовывоз: г. Минск,\nул. Промышленная, 14",
-        delivery: "Доставка\nпо всей Беларуси",
+        pickup: sharedPickup,
+        delivery: sharedDelivery,
         thicknessOptions: ["19 мм", "20 мм", "22 мм"],
-        defaultThickness: "22 мм",
+        defaultThickness: "19 мм",
         deckOptions: ["5 досок", "6 досок"],
         defaultDeck: "5 досок",
         variantImages: buildUsedVariantImageMap("120x800", ["5 досок", "6 досок"]),
@@ -482,25 +655,25 @@ const pageConfigs = {
       },
       {
         id: "used-finnish-1200x1000",
-        title: "120x100",
-        detailTitle: "120x100",
+        title: "1200x1000",
+        detailTitle: "1200x1000",
         summary: "5, 6 досок или\nсплошной настил",
         detailLead:
-          "Б/у поддон размера 120x1000 мм.\nВарианты исполнения: верхний настил 5 досок,\n6 досок или сплошной настил без промежутков.",
+          "Б/у поддон размера 1200×1000 мм.\nВарианты исполнения: верхний настил 5 досок,\n6 досок или сплошной настил без промежутков.",
         image: versionUsedAsset("/assets/generated/used-variants/used-120x100-5boards.webp"),
         gallery: [
           versionUsedAsset("/assets/generated/used-variants/used-120x100-5boards.webp"),
           versionUsedAsset("/assets/generated/used-variants/used-120x100-6boards.webp"),
           versionUsedAsset("/assets/generated/used-variants/used-120x100-soliddeck.webp"),
         ],
-        cardPrice: "28 BYN",
-        price: "28 BYN",
-        priceNote: "Цена зависит от состояния партии и объёма заказа",
+        basePrice: 6.5,
+        cardPrice: "6,50 BYN",
+        priceNote: "Цена указана без учёта НДС. Каждый следующий вариант толщины или настила добавляет 0,30 BYN.",
         availability: "В наличии",
-        pickup: "Самовывоз: г. Минск,\nул. Промышленная, 14",
-        delivery: "Доставка\nпо всей Беларуси",
+        pickup: sharedPickup,
+        delivery: sharedDelivery,
         thicknessOptions: ["19 мм", "20 мм", "22 мм"],
-        defaultThickness: "22 мм",
+        defaultThickness: "19 мм",
         deckOptions: ["5 досок", "6 досок", "Сплошной настил"],
         defaultDeck: "5 досок",
         variantImages: buildUsedVariantImageMap("120x100", ["5 досок", "6 досок", "Сплошной настил"]),
@@ -519,25 +692,25 @@ const pageConfigs = {
       },
       {
         id: "used-sort-2",
-        title: "120x120",
-        detailTitle: "120x120",
+        title: "1200x1200",
+        detailTitle: "1200x1200",
         summary: "5, 6 досок или\nсплошной настил",
         detailLead:
-          "Б/у поддон размера 120x1200 мм.\nВарианты исполнения: верхний настил 5 досок,\n6 досок или сплошной настил без промежутков.",
+          "Б/у поддон размера 1200×1200 мм.\nВарианты исполнения: верхний настил 5 досок,\n6 досок или сплошной настил без промежутков.",
         image: versionUsedAsset("/assets/generated/used-variants/used-120x120-5boards.webp"),
         gallery: [
           versionUsedAsset("/assets/generated/used-variants/used-120x120-5boards.webp"),
           versionUsedAsset("/assets/generated/used-variants/used-120x120-6boards.webp"),
           versionUsedAsset("/assets/generated/used-variants/used-120x120-soliddeck.webp"),
         ],
-        cardPrice: "30 BYN",
-        price: "30 BYN",
-        priceNote: "Финальная цена зависит от варианта настила и объёма партии",
+        basePrice: 6.5,
+        cardPrice: "6,50 BYN",
+        priceNote: "Цена указана без учёта НДС. Каждый следующий вариант толщины или настила добавляет 0,30 BYN.",
         availability: "В наличии",
-        pickup: "Самовывоз: г. Минск,\nул. Промышленная, 14",
-        delivery: "Доставка\nпо всей Беларуси",
+        pickup: sharedPickup,
+        delivery: sharedDelivery,
         thicknessOptions: ["19 мм", "20 мм", "22 мм"],
-        defaultThickness: "22 мм",
+        defaultThickness: "19 мм",
         deckOptions: ["5 досок", "6 досок", "Сплошной настил"],
         defaultDeck: "5 досок",
         variantImages: buildUsedVariantImageMap("120x120", ["5 досок", "6 досок", "Сплошной настил"]),
@@ -560,19 +733,19 @@ const pageConfigs = {
         detailTitle: "Европоддоны\nс клеймом",
         summary: "1 сорт и 2 сорт,\nEUR / EPAL / UIC",
         detailLead:
-          "Б/у европоддоны с клеймом размером 120x80.\nЕсть 1 сорт и 2 сорт: светлый и тёмный.\nМаркировка EUR, EPAL, UIC.",
+          "Б/у европоддоны с клеймом размером 1200×800 мм.\nЕсть 1 сорт и 2 сорт: светлый и тёмный.\nМаркировка EUR, EPAL, UIC.",
         image: versionUsedAsset("/assets/generated/used-variants/used-euro-stack.webp"),
         gallery: [
           versionUsedAsset("/assets/generated/used-variants/used-euro-stack.webp"),
         ],
-        cardPrice: "32 BYN",
-        price: "32 BYN",
-        priceNote: "Стоимость зависит от сорта и состояния партии",
+        basePrice: 6.5,
+        cardPrice: "6,50 BYN",
+        priceNote: "Цена указана без учёта НДС и зависит от сорта и состояния партии.",
         availability: "В наличии",
-        pickup: "Самовывоз: г. Минск,\nул. Промышленная, 14",
-        delivery: "Доставка\nпо всей Беларуси",
+        pickup: sharedPickup,
+        delivery: sharedDelivery,
         specs: [
-          { icon: specIcons.size, label: "Размер: 120x80" },
+          { icon: specIcons.size, label: "Размер: 1200×800 мм" },
           { icon: specIcons.thickness, label: "Толщина доски: 22 мм" },
           { icon: specIcons.sort, label: "Сорт: 1 и 2" },
           { icon: specIcons.material, label: "Материал: хвойные породы" },
@@ -586,6 +759,127 @@ const pageConfigs = {
           { icon: specIcons.material, label: "Материал: хвойные породы" },
           { icon: specIcons.quality, label: "Маркировка: EUR, EPAL, UIC" },
           { icon: "/assets/generated/bottom-icon-shield.webp", label: "Срезаны углы, снята фаска для заезда тележки" },
+        ],
+      },
+      {
+        id: "used-plastic-1200x800",
+        title: "Пластиковый 1200x800",
+        detailTitle: "Пластиковый\n1200x800",
+        summary: "Б/у пластиковый поддон\nв рабочем состоянии",
+        detailLead:
+          "Б/у пластиковый поддон размером 1200×800 мм.\nПроходит осмотр и подходит для повторной эксплуатации.",
+        image: "/assets/generated/product-additions/used-plastic-1200x800.webp",
+        gallery: ["/assets/generated/product-additions/used-plastic-1200x800.webp"],
+        price: "По запросу",
+        priceNote: "Позвоните, чтобы уточнить наличие и состояние партии.",
+        availability: "Уточнить наличие",
+        pickup: sharedPickup,
+        delivery: sharedDelivery,
+        specs: [
+          { icon: specIcons.size, label: "Размер: 1200×800 мм" },
+          { icon: specIcons.material, label: "Материал: HDPE-пластик" },
+        ],
+        detailSpecs: [
+          { icon: specIcons.size, label: "Размер: 1200×800 мм" },
+          { icon: specIcons.material, label: "Материал: HDPE-пластик" },
+          { icon: specIcons.quality, label: "Состояние: после проверки" },
+        ],
+      },
+      {
+        id: "used-plastic-1200x1000",
+        title: "Пластиковый 1200x1000",
+        detailTitle: "Пластиковый\n1200x1000",
+        summary: "Б/у пластиковый поддон\nувеличенного формата",
+        detailLead:
+          "Б/у пластиковый поддон размером 1200×1000 мм.\nПодходит для склада и повторного использования.",
+        image: "/assets/generated/product-additions/used-plastic-1200x1000.webp",
+        gallery: ["/assets/generated/product-additions/used-plastic-1200x1000.webp"],
+        price: "По запросу",
+        priceNote: "Позвоните, чтобы уточнить наличие и состояние партии.",
+        availability: "Уточнить наличие",
+        pickup: sharedPickup,
+        delivery: sharedDelivery,
+        specs: [
+          { icon: specIcons.size, label: "Размер: 1200×1000 мм" },
+          { icon: specIcons.material, label: "Материал: HDPE-пластик" },
+        ],
+        detailSpecs: [
+          { icon: specIcons.size, label: "Размер: 1200×1000 мм" },
+          { icon: specIcons.material, label: "Материал: HDPE-пластик" },
+          { icon: specIcons.quality, label: "Состояние: после проверки" },
+        ],
+      },
+      {
+        id: "used-eurocube",
+        title: "Еврокуб 1000 л",
+        detailTitle: "Еврокуб\n1000 л",
+        summary: "Б/у еврокуб\nв металлической обрешётке",
+        detailLead:
+          "Б/у еврокуб объёмом 1000 литров.\nНаличие, состояние ёмкости и тип поддона уточняйте перед заказом.",
+        image: "/assets/generated/product-additions/used-eurocube.webp",
+        gallery: ["/assets/generated/product-additions/used-eurocube.webp"],
+        price: "По запросу",
+        priceNote: "Цена и наличие зависят от состояния конкретной ёмкости.",
+        availability: "Уточнить наличие",
+        pickup: sharedPickup,
+        delivery: sharedDelivery,
+        specs: [
+          { icon: specIcons.weight, label: "Объём: 1000 л" },
+          { icon: specIcons.quality, label: "Состояние: б/у" },
+        ],
+        detailSpecs: [
+          { icon: specIcons.weight, label: "Номинальный объём: 1000 л" },
+          { icon: specIcons.material, label: "Пластиковая ёмкость в стальной обрешётке" },
+          { icon: specIcons.quality, label: "Состояние и герметичность уточняются" },
+        ],
+      },
+      {
+        id: "used-big-bag",
+        title: "Биг-бэг б/у",
+        detailTitle: "Биг-бэг б/у",
+        summary: "Мягкий контейнер\nдля сыпучих грузов",
+        detailLead:
+          "Б/у мягкие контейнеры Big Bag для хранения и перевозки сыпучих грузов.\nРазмер и наличие нужного варианта уточняйте перед заказом.",
+        image: "/assets/generated/product-additions/used-big-bag.webp",
+        gallery: ["/assets/generated/product-additions/used-big-bag.webp"],
+        basePrice: 5.5,
+        cardPrice: "5,50 BYN",
+        priceNote: "Цена от 5,50 BYN без учёта НДС. Наличие нужного размера уточняйте по телефону.",
+        availability: "Уточнить наличие",
+        pickup: sharedPickup,
+        delivery: sharedDelivery,
+        specs: [
+          { icon: specIcons.weight, label: "Для сыпучих грузов" },
+          { icon: specIcons.size, label: "Размеры: в ассортименте" },
+        ],
+        detailSpecs: [
+          { icon: specIcons.size, label: "Размер: уточняется по наличию" },
+          { icon: specIcons.weight, label: "Грузоподъёмность: зависит от модели" },
+          { icon: specIcons.quality, label: "Состояние: проверенное б/у" },
+        ],
+      },
+      {
+        id: "wood-offcuts",
+        title: "Отходы древесины",
+        detailTitle: "Отходы\nдревесины",
+        summary: "Сухие обрезки производства\nдля отопления",
+        detailLead:
+          "Сухие обрезки хвойной древесины от производства поддонов.\nПодходят для отопления; объём партии и наличие уточняйте по телефону.",
+        image: "/assets/generated/product-additions/wood-offcuts.webp",
+        gallery: ["/assets/generated/product-additions/wood-offcuts.webp"],
+        price: "По запросу",
+        priceNote: "Стоимость зависит от объёма и способа отгрузки.",
+        availability: "Уточнить наличие",
+        pickup: sharedPickup,
+        delivery: sharedDelivery,
+        specs: [
+          { icon: specIcons.material, label: "Сухая хвойная древесина" },
+          { icon: specIcons.weight, label: "Объём: по наличию" },
+        ],
+        detailSpecs: [
+          { icon: specIcons.material, label: "Материал: сухая хвойная древесина" },
+          { icon: specIcons.quality, label: "Без окраски и химических покрытий" },
+          { icon: specIcons.weight, label: "Объём партии: по согласованию" },
         ],
       },
     ],
@@ -611,6 +905,14 @@ const pageConfigs = {
         text: "Быстрая и надёжная доставка\nв любой регион страны",
       },
     ],
+    serviceFeature: {
+      eyebrow: "Отдельная услуга",
+      title: "Поддоны с фитосанитарным клеймом",
+      text: "Подберём б/у поддоны с подходящей маркировкой для экспортных и складских задач. Стоимость и наличие уточняются по телефону.",
+      primaryLabel: "Уточнить наличие",
+      requestProduct: "Б/у поддоны с фитосанитарным клеймом",
+    },
+    logistics: sharedLogistics,
     qualitySection: null,
     detailBenefits: [
       {
@@ -680,6 +982,14 @@ const pageConfigs = {
           label: "БИК",
           value: "ALFABY2X",
         },
+        {
+          label: "Телефон",
+          value: "+375 (29) 697-47-77",
+        },
+        {
+          label: "Email",
+          value: "1041313@gmail.com",
+        },
       ],
     },
   },
@@ -688,7 +998,7 @@ const pageConfigs = {
 const resolvedHomeHighlights = prefixPaths(homeHighlights);
 const resolvedPageConfigs = prefixPaths(pageConfigs);
 
-function CatalogCard({ item, onOpen, related = false, showSpecs = true }) {
+function CatalogCard({ item, onOpen, onRequest, related = false, showSpecs = true }) {
   return (
     <article
       className={`catalog-card${related ? " catalog-card--related" : ""}${item.id === "custom-size-order" ? " catalog-card--custom" : ""}`}
@@ -719,8 +1029,12 @@ function CatalogCard({ item, onOpen, related = false, showSpecs = true }) {
           </div>
         ) : null}
 
-        <button className="catalog-card__button" onClick={() => onOpen(item.id)} type="button">
-          <span>Подробнее</span>
+        <button
+          className="catalog-card__button"
+          onClick={() => (item.requestOnly ? onRequest(item) : onOpen(item.id))}
+          type="button"
+        >
+          <span>{item.actionLabel || "Подробнее"}</span>
           <img alt="" aria-hidden="true" src={withBase("/assets/generated/icon-arrow-right.webp")} />
         </button>
       </div>
@@ -833,6 +1147,7 @@ export function App({ pageKey = "home" }) {
 
   const page = resolvedPageConfigs[pageKey] ?? resolvedPageConfigs.new;
   const pagePhone = phoneContactsByPage[pageKey] ?? phoneContactsByPage.new;
+  const pageEmail = emailContactsByPage[pageKey] ?? emailContactsByPage.new;
   const requestSectionLabel = pageKey === "used" ? "Б/у" : pageKey === "new" ? "Новые" : "";
   const selectedProduct = page.catalogItems.find((item) => item.id === selectedProductId) ?? null;
   const activeThickness =
@@ -841,6 +1156,9 @@ export function App({ pageKey = "home" }) {
   const activeVariantImage = getVariantImageForProduct(selectedProduct, activeDeck);
   const selectedGallery = activeVariantImage ? [activeVariantImage] : selectedProduct?.gallery ?? [];
   const activeGalleryImage = selectedGallery[activeGalleryIndex] ?? selectedGallery[0] ?? "";
+  const activeProductPrice = getCalculatedPrice(selectedProduct, activeThickness, activeDeck);
+  const isCustomRequest = requestContext.product === "Заказать другой размер";
+  const hasServiceSection = Boolean(page.serviceFeature || page.logistics?.length);
 
   const openProductDetail = (productId) => {
     setSelectedProductId(productId);
@@ -882,9 +1200,40 @@ export function App({ pageKey = "home" }) {
     }
   };
 
+  const handleRequestFileChange = (event) => {
+    const file = event.target.files?.[0];
+    setRequestForm((current) => ({
+      ...current,
+      fileName: file?.name || "",
+    }));
+  };
+
   const handleRequestSubmit = (event) => {
     event.preventDefault();
+    const requestLines = [
+      `Раздел: ${requestContext.source || requestSectionLabel}`,
+      requestContext.product ? `Товар: ${requestContext.product}` : "",
+      requestContext.thickness ? `Толщина: ${requestContext.thickness}` : "",
+      requestContext.deck ? `Настил: ${requestContext.deck}` : "",
+      requestForm.length ? `Длина: ${requestForm.length} мм` : "",
+      requestForm.width ? `Ширина: ${requestForm.width} мм` : "",
+      requestForm.height ? `Высота: ${requestForm.height} мм` : "",
+      requestForm.quantity ? `Количество: ${requestForm.quantity}` : "",
+      `Имя: ${requestForm.name}`,
+      `Телефон: ${requestForm.phone}`,
+      requestForm.email ? `Email: ${requestForm.email}` : "",
+      requestForm.comment ? `Комментарий: ${requestForm.comment}` : "",
+      requestForm.fileName
+        ? `Файл: ${requestForm.fileName} (пожалуйста, приложите выбранный файл к письму)`
+        : "",
+    ].filter(Boolean);
+    const subject = `Заявка с сайта: ${requestContext.product || requestSectionLabel}`;
+    window.location.href = `mailto:${pageEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(requestLines.join("\n"))}`;
     setRequestStatus("success");
+  };
+
+  const openCatalogRequest = (item) => {
+    openRequestModal({ product: item.detailTitle || item.title });
   };
 
   useEffect(() => {
@@ -1014,12 +1363,76 @@ export function App({ pageKey = "home" }) {
                 item={item}
                 key={item.id}
                 onOpen={openProductDetail}
+                onRequest={openCatalogRequest}
                 showSpecs={page.showCatalogSpecs !== false}
               />
             ))}
           </div>
         </div>
       </section>
+
+      {hasServiceSection ? (
+        <section className="service-logistics" id="delivery">
+          {!page.qualitySection ? <span aria-hidden="true" className="section-anchor" id="company" /> : null}
+
+          <div className="service-logistics__inner">
+            {page.serviceFeature ? (
+              <article className="service-card">
+                <span className="service-card__eyebrow">{page.serviceFeature.eyebrow}</span>
+                <h2>{page.serviceFeature.title}</h2>
+                <p>{page.serviceFeature.text}</p>
+
+                <div className="service-card__actions">
+                  <button
+                    className="service-card__button"
+                    onClick={() =>
+                      openRequestModal({
+                        product: page.serviceFeature.requestProduct || page.serviceFeature.title,
+                        source: requestSectionLabel,
+                      })
+                    }
+                    type="button"
+                  >
+                    <span>{page.serviceFeature.primaryLabel}</span>
+                    <img alt="" aria-hidden="true" src={withBase("/assets/generated/icon-arrow-right.webp")} />
+                  </button>
+
+                  <a className="service-card__phone" href={pagePhone.href}>
+                    <img alt="" aria-hidden="true" src={withBase("/assets/generated/detail/phone.webp")} />
+                    <span>{pagePhone.label}</span>
+                  </a>
+                </div>
+              </article>
+            ) : null}
+
+            {page.logistics?.length ? (
+              <aside className="logistics-card" aria-label="Доставка и условия">
+                <div className="logistics-card__heading">
+                  <span>Доставка и условия</span>
+                  <strong>Самовывоз, доставка и поддержка по заказу</strong>
+                </div>
+
+                <div className="logistics-card__list">
+                  {page.logistics.map(({ icon, text, title }) => (
+                    <article className="logistics-item" key={title}>
+                      <img alt="" aria-hidden="true" className="logistics-item__icon" src={icon} />
+                      <div>
+                        <strong>{title}</strong>
+                        <p>{text}</p>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+
+                <div className="logistics-card__contacts">
+                  <a href={pagePhone.href}>{pagePhone.label}</a>
+                  <a href={`mailto:${pageEmail}`}>{pageEmail}</a>
+                </div>
+              </aside>
+            ) : null}
+          </div>
+        </section>
+      ) : null}
 
       {selectedProduct ? (
         <section
@@ -1148,11 +1561,13 @@ export function App({ pageKey = "home" }) {
                   ))}
                 </ul>
 
-                <div className="product-detail-card__price">
-                  <span>Цена от</span>
-                  <strong>{selectedProduct.price}</strong>
-                  <em>/ шт</em>
-                </div>
+                {activeProductPrice ? (
+                  <div className="product-detail-card__price">
+                    <span>{activeProductPrice === "По запросу" ? "Цена" : "Цена от"}</span>
+                    <strong>{activeProductPrice}</strong>
+                    {activeProductPrice === "По запросу" ? null : <em>/ шт</em>}
+                  </div>
+                ) : null}
 
                 <p className="product-detail-card__price-note">{selectedProduct.priceNote}</p>
 
@@ -1238,8 +1653,11 @@ export function App({ pageKey = "home" }) {
 
               {requestStatus === "success" ? (
                 <div className="request-modal__success">
-                  <strong>Заявка готова.</strong>
-                  <p>Контакты заполнены. Следующим шагом можно подключить реальную отправку в Telegram, почту или CRM.</p>
+                  <strong>Письмо подготовлено.</strong>
+                  <p>
+                    Открыто почтовое приложение с заполненной заявкой на адрес {pageEmail}.
+                    {requestForm.fileName ? " Не забудьте приложить выбранный файл перед отправкой." : ""}
+                  </p>
 
                   <div className="request-modal__footer">
                     <button className="request-modal__submit" onClick={closeRequestModal} type="button">
@@ -1277,6 +1695,84 @@ export function App({ pageKey = "home" }) {
                       value={requestForm.phone}
                     />
                   </label>
+
+                  <label className="request-modal__field">
+                    <span>Email</span>
+                    <input
+                      autoComplete="email"
+                      className="request-modal__input"
+                      name="email"
+                      onChange={handleRequestFieldChange}
+                      placeholder={pageEmail}
+                      type="email"
+                      value={requestForm.email}
+                    />
+                  </label>
+
+                  {isCustomRequest ? (
+                    <>
+                      <div className="request-modal__dimensions" aria-label="Размеры изделия в миллиметрах">
+                        {[
+                          ["length", "Длина, мм"],
+                          ["width", "Ширина, мм"],
+                          ["height", "Высота, мм"],
+                        ].map(([name, label]) => (
+                          <label className="request-modal__field" key={name}>
+                            <span>{label}</span>
+                            <input
+                              className="request-modal__input"
+                              inputMode="numeric"
+                              min="1"
+                              name={name}
+                              onChange={handleRequestFieldChange}
+                              placeholder="0"
+                              type="number"
+                              value={requestForm[name]}
+                            />
+                          </label>
+                        ))}
+                      </div>
+
+                      <label className="request-modal__field">
+                        <span>Количество, шт.</span>
+                        <input
+                          className="request-modal__input"
+                          inputMode="numeric"
+                          min="1"
+                          name="quantity"
+                          onChange={handleRequestFieldChange}
+                          placeholder="Желаемый объём партии"
+                          type="number"
+                          value={requestForm.quantity}
+                        />
+                      </label>
+
+                      <label className="request-modal__field request-modal__file-field">
+                        <span>Чертёж или техническое задание</span>
+                        <input
+                          accept=".pdf,.png,.jpg,.jpeg,.webp,.dwg,.dxf"
+                          className="request-modal__file-input"
+                          onChange={handleRequestFileChange}
+                          type="file"
+                        />
+                        <strong>{requestForm.fileName || "Выберите PDF, изображение, DWG или DXF"}</strong>
+                      </label>
+                    </>
+                  ) : (
+                    <label className="request-modal__field">
+                      <span>Количество, шт.</span>
+                      <input
+                        className="request-modal__input"
+                        inputMode="numeric"
+                        min="1"
+                        name="quantity"
+                        onChange={handleRequestFieldChange}
+                        placeholder="Желаемый объём партии"
+                        type="number"
+                        value={requestForm.quantity}
+                      />
+                    </label>
+                  )}
 
                   <label className="request-modal__field">
                     <span>Комментарий</span>
@@ -1417,6 +1913,14 @@ export function App({ pageKey = "home" }) {
                     <p className="site-footer__line" key={label}>
                       <span>{label}:</span> {value}
                     </p>
+                  ))}
+                </div>
+
+                <div className="site-footer__socials" aria-label="Социальные сети">
+                  {footerSocialLinks.map(({ icon, label }) => (
+                    <span className="site-footer__social-link" key={label} aria-label={label} title={label}>
+                      {icon}
+                    </span>
                   ))}
                 </div>
               </div>
