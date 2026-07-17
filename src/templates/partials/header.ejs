@@ -44,7 +44,7 @@ const headerPhone = headerPhoneByPage[currentPageKey] || headerPhoneByPage.new;
       <% if (currentPageKey !== "home") { %>
         <nav class="site-nav" aria-label="Основная навигация">
           <% headerNavItems.forEach((item) => { %>
-            <a href="<%= item.href %>"><%= item.label %></a>
+            <a data-i18n="<%= item.href === '#company' ? 'about' : item.href === '#catalog' ? 'catalog' : item.href === '#delivery' ? 'delivery' : 'contacts' %>" href="<%= item.href %>"><%= item.label %></a>
           <% }) %>
         </nav>
       <% } %>
@@ -55,17 +55,25 @@ const headerPhone = headerPhoneByPage[currentPageKey] || headerPhoneByPage.new;
             class="site-switcher__link<%= currentPageKey === item.key ? ' site-switcher__link--active' : '' %>"
             href="<%= item.href %>"
           >
-            <%= item.label %>
+            <span data-i18n="<%= item.key %>"><%= item.label %></span>
           </a>
         <% }) %>
       </div>
+
+      <% if (currentPageKey !== "home") { %>
+        <div class="site-language" aria-label="Language / Sprache">
+          <% ['ru', 'en', 'de'].forEach((language) => { %>
+            <a class="site-language__link" data-language="<%= language %>" href="?lang=<%= language %>"><%= language.toUpperCase() %></a>
+          <% }) %>
+        </div>
+      <% } %>
 
       <% if (currentPageKey !== "home") { %>
         <a class="site-phone" href="<%= headerPhone.href %>">
           <span class="site-phone__icon" aria-hidden="true">✆</span>
           <span class="site-phone__text">
             <strong><%= headerPhone.label %></strong>
-            <em>Ежедневно с 9:00 до 18:00</em>
+            <em data-i18n="hours">Ежедневно с 9:00 до 18:00</em>
           </span>
         </a>
       <% } %>

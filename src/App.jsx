@@ -167,6 +167,281 @@ const getCalculatedPrice = (product, thickness = "", deck = "") => {
   return formatByn(product.basePrice + (thicknessIndex + deckIndex) * 0.3);
 };
 
+const uiCopyByLanguage = {
+  ru: {
+    catalog: "Каталог",
+    details: "Подробнее",
+    price: "Цена",
+    priceFrom: "Цена от",
+    perPiece: "/ шт",
+    request: "Оформить заявку",
+    call: "Позвонить",
+    boardThickness: "Толщина доски",
+    topDeck: "Верхний настил",
+    section: "Раздел",
+    product: "Товар",
+    thickness: "Толщина",
+    deck: "Настил",
+    name: "Ваше имя",
+    namePlaceholder: "Как к вам обращаться",
+    phone: "Телефон",
+    email: "Email",
+    quantity: "Количество, шт.",
+    quantityPlaceholder: "Желаемый объём партии",
+    dimensions: ["Длина, мм", "Ширина, мм", "Высота, мм"],
+    drawing: "Чертёж или техническое задание",
+    drawingPrompt: "Выберите PDF, изображение, DWG или DXF",
+    comment: "Комментарий",
+    commentPlaceholder: "Напишите размер, объём партии, срок поставки или другие детали",
+    requestLead: "Оставьте имя и телефон. Мы свяжемся с вами, уточним детали и подготовим предложение.",
+    send: "Отправить заявку",
+    close: "Закрыть окно",
+    mailReady: "Письмо подготовлено.",
+    deliveryTitle: "Доставка и условия",
+    deliverySubtitle: "Самовывоз, доставка и поддержка по заказу",
+  },
+  en: {
+    catalog: "Catalog",
+    details: "Details",
+    price: "Price",
+    priceFrom: "Price from",
+    perPiece: "/ pc",
+    request: "Request a quote",
+    call: "Call us",
+    boardThickness: "Board thickness",
+    topDeck: "Top deck",
+    section: "Section",
+    product: "Product",
+    thickness: "Thickness",
+    deck: "Top deck",
+    name: "Your name",
+    namePlaceholder: "How should we address you?",
+    phone: "Phone",
+    email: "Email",
+    quantity: "Quantity, pcs",
+    quantityPlaceholder: "Required quantity",
+    dimensions: ["Length, mm", "Width, mm", "Height, mm"],
+    drawing: "Drawing or specification",
+    drawingPrompt: "Choose PDF, image, DWG or DXF",
+    comment: "Comment",
+    commentPlaceholder: "Describe the size, quantity, delivery date or other details",
+    requestLead: "Leave your name and phone number. We will contact you, confirm the details and prepare an offer.",
+    send: "Send request",
+    close: "Close",
+    mailReady: "Email draft is ready.",
+    deliveryTitle: "Delivery and terms",
+    deliverySubtitle: "Pickup, delivery and order support",
+  },
+  de: {
+    catalog: "Katalog",
+    details: "Details",
+    price: "Preis",
+    priceFrom: "Preis ab",
+    perPiece: "/ Stk.",
+    request: "Angebot anfragen",
+    call: "Anrufen",
+    boardThickness: "Brettstärke",
+    topDeck: "Oberdeck",
+    section: "Bereich",
+    product: "Produkt",
+    thickness: "Stärke",
+    deck: "Oberdeck",
+    name: "Ihr Name",
+    namePlaceholder: "Wie dürfen wir Sie ansprechen?",
+    phone: "Telefon",
+    email: "E-Mail",
+    quantity: "Menge, Stk.",
+    quantityPlaceholder: "Gewünschte Menge",
+    dimensions: ["Länge, mm", "Breite, mm", "Höhe, mm"],
+    drawing: "Zeichnung oder Spezifikation",
+    drawingPrompt: "PDF, Bild, DWG oder DXF auswählen",
+    comment: "Kommentar",
+    commentPlaceholder: "Beschreiben Sie Maße, Menge, Liefertermin oder weitere Details",
+    requestLead: "Hinterlassen Sie Ihren Namen und Ihre Telefonnummer. Wir klären die Details und erstellen ein Angebot.",
+    send: "Anfrage senden",
+    close: "Schließen",
+    mailReady: "E-Mail-Entwurf ist fertig.",
+    deliveryTitle: "Lieferung und Bedingungen",
+    deliverySubtitle: "Abholung, Lieferung und Auftragsbetreuung",
+  },
+};
+
+const pageCopyByLanguage = {
+  en: {
+    new: {
+      title: "New pallets",
+      lead: "Quality new softwood pallets.\nIdeal for storage and freight handling.",
+      features: [
+        ["High quality", "and reliability"],
+        ["Made from", "fresh timber"],
+        ["Compliant", "with standards"],
+      ],
+      service: ["Additional service", "Phytosanitary treatment", "We prepare pallets for export shipments and provide the agreed marking.", "Request treatment"],
+    },
+    used: {
+      title: "Used pallets",
+      lead: "Inspected pallets in good working condition at a competitive price.\nSuitable for warehouses, logistics and transport.",
+      features: [
+        ["Inspected", "condition"],
+        ["Competitive", "price"],
+        ["Ready", "for work"],
+      ],
+      service: ["Separate service", "Pallets with phytosanitary stamp", "We select used pallets with the required marking for export and warehouse operations. Contact us for availability.", "Check availability"],
+    },
+    logistics: [
+      ["Warehouse pickup", "Minsk, 29 Vaneeva Street"],
+      ["Free delivery", "Free within Minsk Ring Road and up to 10 km beyond it. Longer routes are calculated separately, with possible savings through a return load."],
+      ["Own transport", "A spacious 90 m³ truck for large shipments."],
+    ],
+  },
+  de: {
+    new: {
+      title: "Neue Paletten",
+      lead: "Hochwertige neue Paletten aus Nadelholz.\nIdeal für Lagerung und Transport.",
+      features: [
+        ["Hohe Qualität", "und Zuverlässigkeit"],
+        ["Gefertigt aus", "frischem Holz"],
+        ["Entsprechen", "den Standards"],
+      ],
+      service: ["Zusatzleistung", "Phytosanitäre Behandlung", "Wir bereiten Paletten für Exportsendungen vor und liefern die vereinbarte Kennzeichnung.", "Behandlung anfragen"],
+    },
+    used: {
+      title: "Gebrauchte Paletten",
+      lead: "Geprüfte Paletten in gutem Zustand zu einem günstigen Preis.\nFür Lager, Logistik und Transport.",
+      features: [
+        ["Geprüfter", "Zustand"],
+        ["Günstiger", "Preis"],
+        ["Sofort", "einsatzbereit"],
+      ],
+      service: ["Separate Leistung", "Paletten mit phytosanitärem Stempel", "Wir wählen gebrauchte Paletten mit passender Kennzeichnung für Export und Lager aus. Verfügbarkeit auf Anfrage.", "Verfügbarkeit prüfen"],
+    },
+    logistics: [
+      ["Abholung am Lager", "Minsk, Vaneeva-Straße 29"],
+      ["Kostenlose Lieferung", "Kostenlos innerhalb des Minsker Autobahnrings und bis 10 km darüber hinaus. Weitere Strecken werden separat berechnet; Rückladung kann Kosten sparen."],
+      ["Eigener Transport", "Geräumiger 90-m³-Lkw für große Lieferungen."],
+    ],
+  },
+};
+
+const productCopyByLanguage = {
+  en: {
+    "winter-pallet": ["Winter pallets", "Reinforced design\nfor cold storage"],
+    "new-plastic-1200x800": ["Plastic 1200x800", "New plastic pallet\nfor clean production"],
+    "new-plastic-1200x1000": ["Plastic 1200x1000", "New large-format\nplastic pallet"],
+    "custom-size-order": ["Custom size pallet", "We manufacture pallets\nto your specification"],
+    "used-reinforced": ["Stamped Euro pallets", "Grade 1 and 2,\nEUR / EPAL / UIC"],
+    "used-plastic-1200x800": ["Plastic 1200x800", "Inspected used\nplastic pallet"],
+    "used-plastic-1200x1000": ["Plastic 1200x1000", "Large-format used\nplastic pallet"],
+    "used-eurocube": ["IBC tank 1000 L", "Used IBC tank\nin a steel cage"],
+    "used-big-bag": ["Used Big Bag", "Flexible container\nfor bulk materials"],
+    "wood-offcuts": ["Wood offcuts", "Dry production offcuts\nfor heating"],
+  },
+  de: {
+    "winter-pallet": ["Winterpaletten", "Verstärkte Ausführung\nfür kalte Lager"],
+    "new-plastic-1200x800": ["Kunststoff 1200x800", "Neue Kunststoffpalette\nfür hygienische Bereiche"],
+    "new-plastic-1200x1000": ["Kunststoff 1200x1000", "Neue großformatige\nKunststoffpalette"],
+    "custom-size-order": ["Sondermaß bestellen", "Wir fertigen Paletten\nnach Ihrer Vorgabe"],
+    "used-reinforced": ["Gestempelte Europaletten", "Klasse 1 und 2,\nEUR / EPAL / UIC"],
+    "used-plastic-1200x800": ["Kunststoff 1200x800", "Geprüfte gebrauchte\nKunststoffpalette"],
+    "used-plastic-1200x1000": ["Kunststoff 1200x1000", "Gebrauchte großformatige\nKunststoffpalette"],
+    "used-eurocube": ["IBC-Container 1000 L", "Gebrauchter IBC-Container\nim Stahlkäfig"],
+    "used-big-bag": ["Gebrauchter Big Bag", "Flexibler Behälter\nfür Schüttgut"],
+    "wood-offcuts": ["Holzreste", "Trockene Produktionsreste\nzum Heizen"],
+  },
+};
+
+const localizeProduct = (item, language, pageKey) => {
+  if (!item || language === "ru") {
+    return item;
+  }
+
+  const [translatedTitle, translatedSummary] = productCopyByLanguage[language]?.[item.id] || [];
+  const isUsed = pageKey === "used";
+  const numericTitle = /^\d/.test(item.title);
+  const genericSummary = isUsed
+    ? language === "de"
+      ? "Geprüfte gebrauchte Palette\nfür Lager und Logistik"
+      : "Inspected used pallet\nfor warehouse and logistics"
+    : language === "de"
+      ? "Neue Holzpalette\nfür Lager und Logistik"
+      : "New wooden pallet\nfor warehouse and logistics";
+  const genericLead = isUsed
+    ? language === "de"
+      ? `Gebrauchte Palette in der Größe ${item.title} mm. Zustand und Ausführung werden vor der Lieferung geprüft.`
+      : `Used pallet size ${item.title} mm. Condition and configuration are checked before shipment.`
+    : language === "de"
+      ? `Neue Palette in der Größe ${item.title} mm. Für Lagerung, Logistik und Transport.`
+      : `New pallet size ${item.title} mm. Suitable for storage, logistics and transport.`;
+
+  return {
+    ...item,
+    title: translatedTitle || item.title,
+    detailTitle: translatedTitle || item.detailTitle,
+    summary: translatedSummary || (numericTitle ? genericSummary : item.summary),
+    detailLead: numericTitle ? genericLead : translatedSummary?.replace("\n", " ") || item.detailLead,
+  };
+};
+
+const getLocalizedPriceNote = (product, language) => {
+  if (!product || language === "ru") {
+    return product?.priceNote || "";
+  }
+
+  if (typeof product.basePrice === "number") {
+    return language === "de"
+      ? "Preis ohne MwSt. Jeder nächste Wert bei Brettstärke oder Oberdeck erhöht den Preis um 0,30 BYN. Der Endpreis hängt von Menge und Zustand ab."
+      : "Price excludes VAT. Each next board thickness or top-deck option adds 0.30 BYN. The final price depends on quantity and condition.";
+  }
+
+  return language === "de"
+    ? "Preis und Verfügbarkeit bitte telefonisch oder per Anfrage klären."
+    : "Please contact us to check price and availability.";
+};
+
+const translateSpecLabel = (label, language) => {
+  if (language === "ru") {
+    return label;
+  }
+
+  const exactPhrases = language === "de"
+    ? {
+        "В наличии": "Auf Lager",
+        "Под заказ": "Auf Bestellung",
+        "Уточнить наличие": "Verfügbarkeit anfragen",
+        "Готовы к отгрузке": "Versandbereit",
+        "По запросу": "Auf Anfrage",
+      }
+    : {
+        "В наличии": "In stock",
+        "Под заказ": "Made to order",
+        "Уточнить наличие": "Check availability",
+        "Готовы к отгрузке": "Ready to ship",
+        "По запросу": "On request",
+      };
+
+  if (exactPhrases[label]) {
+    return exactPhrases[label];
+  }
+
+  const replacements = language === "de"
+    ? [
+        ["Толщина доски", "Brettstärke"], ["Верхний настил", "Oberdeck"], ["Настил", "Oberdeck"],
+        ["Нагрузка", "Traglast"], ["Материал", "Material"], ["Размер", "Maße"], ["Сорт", "Klasse"],
+        ["Состояние", "Zustand"], ["Маркировка", "Kennzeichnung"], ["Объём", "Volumen"],
+        ["Грузоподъёмность", "Tragfähigkeit"], ["хвойные породы", "Nadelholz"], ["досок", "Bretter"],
+        ["сплошной", "geschlossen"], ["до ", "bis "], ["по запросу", "auf Anfrage"],
+      ]
+    : [
+        ["Толщина доски", "Board thickness"], ["Верхний настил", "Top deck"], ["Настил", "Top deck"],
+        ["Нагрузка", "Load capacity"], ["Материал", "Material"], ["Размер", "Size"], ["Сорт", "Grade"],
+        ["Состояние", "Condition"], ["Маркировка", "Marking"], ["Объём", "Volume"],
+        ["Грузоподъёмность", "Load capacity"], ["хвойные породы", "softwood"], ["досок", "boards"],
+        ["сплошной", "solid"], ["до ", "up to "], ["по запросу", "on request"],
+      ];
+
+  return replacements.reduce((value, [from, to]) => value.replaceAll(from, to), label);
+};
+
 const homeHighlights = [
   {
     icon: "/assets/generated/bottom-icon-factory.webp",
@@ -588,7 +863,7 @@ const pageConfigs = {
   used: {
     pageClassName: "page--used",
     heroClassName: "hero-banner--used",
-    showCatalogSpecs: false,
+    showCatalogSpecs: true,
     hero: {
       title: "Б/у поддоны",
       lead:
@@ -998,25 +1273,29 @@ const pageConfigs = {
 const resolvedHomeHighlights = prefixPaths(homeHighlights);
 const resolvedPageConfigs = prefixPaths(pageConfigs);
 
-function CatalogCard({ item, onOpen, onRequest, related = false, showSpecs = true }) {
+function CatalogCard({ item, language, onOpen, onRequest, pageKey, related = false, showSpecs = true, customGridMode = "full" }) {
+  const copy = uiCopyByLanguage[language] || uiCopyByLanguage.ru;
+  const displayItem = localizeProduct(item, language, pageKey);
+  const isCustom = item.id === "custom-size-order";
+
   return (
     <article
-      className={`catalog-card${related ? " catalog-card--related" : ""}${item.id === "custom-size-order" ? " catalog-card--custom" : ""}`}
+      className={`catalog-card${related ? " catalog-card--related" : ""}${isCustom ? ` catalog-card--custom catalog-card--custom-${customGridMode}` : ""}`}
     >
       <div className="catalog-card__image-wrap">
-        <img alt={item.title} className="catalog-card__image" decoding="async" loading="lazy" src={item.image} />
+        <img alt={displayItem.title} className="catalog-card__image" decoding="async" loading="lazy" src={item.image} />
       </div>
 
       <div className="catalog-card__body">
-        <h3>{item.title}</h3>
-        {item.summary ? <p>{item.summary}</p> : null}
+        <h3>{displayItem.title}</h3>
+        {displayItem.summary ? <p>{displayItem.summary}</p> : null}
 
         {showSpecs ? (
           <ul className="catalog-card__specs">
             {item.specs.map(({ icon, label }) => (
               <li key={label}>
                 <img alt="" aria-hidden="true" decoding="async" loading="lazy" src={icon} />
-                <span>{label}</span>
+                <span>{translateSpecLabel(label, language)}</span>
               </li>
             ))}
           </ul>
@@ -1024,7 +1303,7 @@ function CatalogCard({ item, onOpen, onRequest, related = false, showSpecs = tru
 
         {item.cardPrice ? (
           <div className="catalog-card__price-line">
-            <span>Цена от</span>
+            <span>{copy.priceFrom}</span>
             <strong>{item.cardPrice}</strong>
           </div>
         ) : null}
@@ -1034,7 +1313,7 @@ function CatalogCard({ item, onOpen, onRequest, related = false, showSpecs = tru
           onClick={() => (item.requestOnly ? onRequest(item) : onOpen(item.id))}
           type="button"
         >
-          <span>{item.actionLabel || "Подробнее"}</span>
+          <span>{item.requestOnly ? copy.request : copy.details}</span>
           <img alt="" aria-hidden="true" src={withBase("/assets/generated/icon-arrow-right.webp")} />
         </button>
       </div>
@@ -1131,7 +1410,7 @@ function SelectionLanding() {
   );
 }
 
-export function App({ pageKey = "home" }) {
+export function App({ language = "ru", pageKey = "home" }) {
   const [selectedProductId, setSelectedProductId] = useState(null);
   const [activeGalleryIndex, setActiveGalleryIndex] = useState(0);
   const [selectedThickness, setSelectedThickness] = useState("");
@@ -1146,10 +1425,13 @@ export function App({ pageKey = "home" }) {
   }
 
   const page = resolvedPageConfigs[pageKey] ?? resolvedPageConfigs.new;
+  const copy = uiCopyByLanguage[language] || uiCopyByLanguage.ru;
+  const localizedPage = pageCopyByLanguage[language]?.[pageKey] || null;
   const pagePhone = phoneContactsByPage[pageKey] ?? phoneContactsByPage.new;
   const pageEmail = emailContactsByPage[pageKey] ?? emailContactsByPage.new;
   const requestSectionLabel = pageKey === "used" ? "Б/у" : pageKey === "new" ? "Новые" : "";
   const selectedProduct = page.catalogItems.find((item) => item.id === selectedProductId) ?? null;
+  const localizedSelectedProduct = localizeProduct(selectedProduct, language, pageKey);
   const activeThickness =
     selectedThickness || selectedProduct?.defaultThickness || selectedProduct?.thicknessOptions?.[0] || "";
   const activeDeck = selectedDeck || selectedProduct?.defaultDeck || selectedProduct?.deckOptions?.[0] || "";
@@ -1157,6 +1439,7 @@ export function App({ pageKey = "home" }) {
   const selectedGallery = activeVariantImage ? [activeVariantImage] : selectedProduct?.gallery ?? [];
   const activeGalleryImage = selectedGallery[activeGalleryIndex] ?? selectedGallery[0] ?? "";
   const activeProductPrice = getCalculatedPrice(selectedProduct, activeThickness, activeDeck);
+  const localizedActiveProductPrice = translateSpecLabel(activeProductPrice, language);
   const isCustomRequest = requestContext.product === "Заказать другой размер";
   const hasServiceSection = Boolean(page.serviceFeature || page.logistics?.length);
 
@@ -1297,10 +1580,10 @@ export function App({ pageKey = "home" }) {
   }, [isRequestModalOpen, selectedProduct]);
 
   const requestContextItems = [
-    requestContext.source ? { label: "Раздел", value: requestContext.source } : null,
-    requestContext.product ? { label: "Товар", value: requestContext.product } : null,
-    requestContext.thickness ? { label: "Толщина", value: requestContext.thickness } : null,
-    requestContext.deck ? { label: "Настил", value: requestContext.deck } : null,
+    requestContext.source ? { label: copy.section, value: requestContext.source } : null,
+    requestContext.product ? { label: copy.product, value: requestContext.product } : null,
+    requestContext.thickness ? { label: copy.thickness, value: requestContext.thickness } : null,
+    requestContext.deck ? { label: copy.deck, value: requestContext.deck } : null,
   ].filter(Boolean);
 
   return (
@@ -1310,10 +1593,10 @@ export function App({ pageKey = "home" }) {
 
         <div className="hero-banner__inner">
           <div className="hero-banner__content">
-            <h1>{page.hero.title}</h1>
+            <h1>{localizedPage?.title || page.hero.title}</h1>
             <span className="hero-banner__accent" aria-hidden="true" />
 
-            <p className="hero-banner__lead">{page.hero.lead}</p>
+            <p className="hero-banner__lead">{localizedPage?.lead || page.hero.lead}</p>
 
             <div className="hero-banner__actions">
               <button
@@ -1321,23 +1604,23 @@ export function App({ pageKey = "home" }) {
                 onClick={() => openRequestModal()}
                 type="button"
               >
-                <span>{page.hero.primaryAction}</span>
+                <span>{copy.request}</span>
                 <img alt="" aria-hidden="true" src={withBase("/assets/generated/icon-arrow-right.webp")} />
               </button>
 
               <a className="hero-button hero-button--ghost" href={pagePhone.href}>
-                <span>{page.hero.secondaryAction}</span>
+                <span>{copy.call}</span>
                 <img alt="" aria-hidden="true" src={withBase("/assets/generated/detail/phone.webp")} />
               </a>
             </div>
 
             <div className="hero-features" aria-label={`Преимущества страницы ${page.hero.title}`}>
-              {page.hero.features.map(({ icon, text, title }) => (
+              {page.hero.features.map(({ icon, text, title }, index) => (
                 <article className="hero-feature" key={title}>
                   <img alt="" aria-hidden="true" className="hero-feature__icon" src={icon} />
                   <div>
-                    <strong>{title}</strong>
-                    <span>{text}</span>
+                    <strong>{localizedPage?.features?.[index]?.[0] || title}</strong>
+                    <span>{localizedPage?.features?.[index]?.[1] || text}</span>
                   </div>
                 </article>
               ))}
@@ -1353,18 +1636,21 @@ export function App({ pageKey = "home" }) {
       <section className="catalog-section" id="catalog">
         <div className="catalog-section__inner">
           <div className="catalog-section__heading">
-            <h2>{page.catalogTitle}</h2>
+            <h2>{copy.catalog}</h2>
             <span aria-hidden="true" className="catalog-section__accent" />
           </div>
 
           <div className="catalog-grid">
-            {page.catalogItems.map((item) => (
+            {page.catalogItems.map((item, index) => (
               <CatalogCard
                 item={item}
                 key={item.id}
+                language={language}
                 onOpen={openProductDetail}
                 onRequest={openCatalogRequest}
+                pageKey={pageKey}
                 showSpecs={page.showCatalogSpecs !== false}
+                customGridMode={index % 2 === 1 ? "paired" : "full"}
               />
             ))}
           </div>
@@ -1378,9 +1664,15 @@ export function App({ pageKey = "home" }) {
           <div className="service-logistics__inner">
             {page.serviceFeature ? (
               <article className="service-card">
-                <span className="service-card__eyebrow">{page.serviceFeature.eyebrow}</span>
-                <h2>{page.serviceFeature.title}</h2>
-                <p>{page.serviceFeature.text}</p>
+                <span className="service-card__eyebrow">{localizedPage?.service?.[0] || page.serviceFeature.eyebrow}</span>
+                <img
+                  alt=""
+                  aria-hidden="true"
+                  className="service-card__visual"
+                  src={withBase("/assets/generated/service-phytosanitary.png")}
+                />
+                <h2>{localizedPage?.service?.[1] || page.serviceFeature.title}</h2>
+                <p>{localizedPage?.service?.[2] || page.serviceFeature.text}</p>
 
                 <div className="service-card__actions">
                   <button
@@ -1393,13 +1685,13 @@ export function App({ pageKey = "home" }) {
                     }
                     type="button"
                   >
-                    <span>{page.serviceFeature.primaryLabel}</span>
+                    <span>{localizedPage?.service?.[3] || page.serviceFeature.primaryLabel}</span>
                     <img alt="" aria-hidden="true" src={withBase("/assets/generated/icon-arrow-right.webp")} />
                   </button>
 
                   <a className="service-card__phone" href={pagePhone.href}>
                     <img alt="" aria-hidden="true" src={withBase("/assets/generated/detail/phone.webp")} />
-                    <span>{pagePhone.label}</span>
+                    <span>{copy.call}: {pagePhone.label}</span>
                   </a>
                 </div>
               </article>
@@ -1408,17 +1700,17 @@ export function App({ pageKey = "home" }) {
             {page.logistics?.length ? (
               <aside className="logistics-card" aria-label="Доставка и условия">
                 <div className="logistics-card__heading">
-                  <span>Доставка и условия</span>
-                  <strong>Самовывоз, доставка и поддержка по заказу</strong>
+                  <span>{copy.deliveryTitle}</span>
+                  <strong>{copy.deliverySubtitle}</strong>
                 </div>
 
                 <div className="logistics-card__list">
-                  {page.logistics.map(({ icon, text, title }) => (
+                  {page.logistics.map(({ icon, text, title }, index) => (
                     <article className="logistics-item" key={title}>
                       <img alt="" aria-hidden="true" className="logistics-item__icon" src={icon} />
                       <div>
-                        <strong>{title}</strong>
-                        <p>{text}</p>
+                        <strong>{pageCopyByLanguage[language]?.logistics?.[index]?.[0] || title}</strong>
+                        <p>{pageCopyByLanguage[language]?.logistics?.[index]?.[1] || text}</p>
                       </div>
                     </article>
                   ))}
@@ -1463,7 +1755,7 @@ export function App({ pageKey = "home" }) {
               <div className="product-detail-card__gallery">
                 <div className="product-detail-card__main-frame">
                   <img
-                    alt={selectedProduct.title}
+                    alt={localizedSelectedProduct.title}
                     className="product-detail-card__main-image"
                     decoding="async"
                     src={activeGalleryImage}
@@ -1488,19 +1780,19 @@ export function App({ pageKey = "home" }) {
 
               <div className="product-detail-card__content">
                 <div className="product-detail-card__topline">
-                  <h2 id="product-detail-title">{selectedProduct.detailTitle}</h2>
+                  <h2 id="product-detail-title">{localizedSelectedProduct.detailTitle}</h2>
 
                   <div className="product-detail-card__availability">
                     <img alt="" aria-hidden="true" src={withBase("/assets/generated/detail/status-check.webp")} />
-                    <span>{selectedProduct.availability}</span>
+                    <span>{translateSpecLabel(selectedProduct.availability, language)}</span>
                   </div>
                 </div>
 
-                <p className="product-detail-card__lead">{selectedProduct.detailLead}</p>
+                <p className="product-detail-card__lead">{localizedSelectedProduct.detailLead}</p>
 
                 {selectedProduct.thicknessOptions?.length ? (
                   <div className="product-detail-card__option-group">
-                    <span className="product-detail-card__option-label">Толщина доски</span>
+                    <span className="product-detail-card__option-label">{copy.boardThickness}</span>
 
                     <div className="product-detail-card__option-list" aria-label="Выбор толщины доски">
                       {selectedProduct.thicknessOptions.map((option) => (
@@ -1520,7 +1812,7 @@ export function App({ pageKey = "home" }) {
 
                 {selectedProduct.deckOptions?.length ? (
                   <div className="product-detail-card__option-group">
-                    <span className="product-detail-card__option-label">Верхний настил</span>
+                    <span className="product-detail-card__option-label">{copy.topDeck}</span>
 
                     <div className="product-detail-card__option-list" aria-label="Выбор верхнего настила">
                       {selectedProduct.deckOptions.map((option) => (
@@ -1542,34 +1834,34 @@ export function App({ pageKey = "home" }) {
                   {activeThickness ? (
                     <li>
                       <img alt="" aria-hidden="true" decoding="async" loading="lazy" src={specIcons.thickness} />
-                      <span>{`Толщина доски: ${activeThickness}`}</span>
+                      <span>{`${copy.boardThickness}: ${activeThickness}`}</span>
                     </li>
                   ) : null}
 
                   {activeDeck ? (
                     <li>
                       <img alt="" aria-hidden="true" decoding="async" loading="lazy" src={specIcons.deck} />
-                      <span>{`Верхний настил: ${activeDeck}`}</span>
+                      <span>{`${copy.topDeck}: ${activeDeck}`}</span>
                     </li>
                   ) : null}
 
                   {selectedProduct.detailSpecs.map(({ icon, label }) => (
                     <li key={label}>
                       <img alt="" aria-hidden="true" decoding="async" loading="lazy" src={icon} />
-                      <span>{label}</span>
+                      <span>{translateSpecLabel(label, language)}</span>
                     </li>
                   ))}
                 </ul>
 
                 {activeProductPrice ? (
                   <div className="product-detail-card__price">
-                    <span>{activeProductPrice === "По запросу" ? "Цена" : "Цена от"}</span>
-                    <strong>{activeProductPrice}</strong>
-                    {activeProductPrice === "По запросу" ? null : <em>/ шт</em>}
+                    <span>{activeProductPrice === "По запросу" ? copy.price : copy.priceFrom}</span>
+                    <strong>{localizedActiveProductPrice}</strong>
+                    {activeProductPrice === "По запросу" ? null : <em>{copy.perPiece}</em>}
                   </div>
                 ) : null}
 
-                <p className="product-detail-card__price-note">{selectedProduct.priceNote}</p>
+                <p className="product-detail-card__price-note">{getLocalizedPriceNote(selectedProduct, language)}</p>
 
                 <div className="product-detail-card__actions">
                   <button
@@ -1583,13 +1875,13 @@ export function App({ pageKey = "home" }) {
                     }
                     type="button"
                   >
-                    <span>Оформить заявку</span>
+                  <span>{copy.request}</span>
                     <img alt="" aria-hidden="true" src={withBase("/assets/generated/icon-arrow-right.webp")} />
                   </button>
 
                   <a className="product-detail-card__action product-detail-card__action--ghost" href={pagePhone.href}>
                     <img alt="" aria-hidden="true" src={withBase("/assets/generated/detail/phone.webp")} />
-                    <span>Позвонить</span>
+                    <span>{copy.call}</span>
                   </a>
                 </div>
 
@@ -1635,10 +1927,8 @@ export function App({ pageKey = "home" }) {
                 <span aria-hidden="true">×</span>
               </button>
 
-              <h2 id="request-modal-title">Оформить заявку</h2>
-              <p className="request-modal__lead">
-                Оставьте имя и телефон. Мы свяжемся с вами, уточним детали и подготовим предложение.
-              </p>
+              <h2 id="request-modal-title">{copy.request}</h2>
+              <p className="request-modal__lead">{copy.requestLead}</p>
 
               {requestContextItems.length ? (
                 <div className="request-modal__context">
@@ -1653,7 +1943,7 @@ export function App({ pageKey = "home" }) {
 
               {requestStatus === "success" ? (
                 <div className="request-modal__success">
-                  <strong>Письмо подготовлено.</strong>
+                  <strong>{copy.mailReady}</strong>
                   <p>
                     Открыто почтовое приложение с заполненной заявкой на адрес {pageEmail}.
                     {requestForm.fileName ? " Не забудьте приложить выбранный файл перед отправкой." : ""}
@@ -1661,7 +1951,7 @@ export function App({ pageKey = "home" }) {
 
                   <div className="request-modal__footer">
                     <button className="request-modal__submit" onClick={closeRequestModal} type="button">
-                      <span>Закрыть окно</span>
+                      <span>{copy.close}</span>
                       <img alt="" aria-hidden="true" src={withBase("/assets/generated/icon-arrow-right.webp")} />
                     </button>
                   </div>
@@ -1669,13 +1959,13 @@ export function App({ pageKey = "home" }) {
               ) : (
                 <form className="request-modal__form" onSubmit={handleRequestSubmit}>
                   <label className="request-modal__field">
-                    <span>Ваше имя</span>
+                    <span>{copy.name}</span>
                     <input
                       autoComplete="name"
                       className="request-modal__input"
                       name="name"
                       onChange={handleRequestFieldChange}
-                      placeholder="Как к вам обращаться"
+                      placeholder={copy.namePlaceholder}
                       required
                       type="text"
                       value={requestForm.name}
@@ -1683,7 +1973,7 @@ export function App({ pageKey = "home" }) {
                   </label>
 
                   <label className="request-modal__field">
-                    <span>Телефон</span>
+                    <span>{copy.phone}</span>
                     <input
                       autoComplete="tel"
                       className="request-modal__input"
@@ -1697,7 +1987,7 @@ export function App({ pageKey = "home" }) {
                   </label>
 
                   <label className="request-modal__field">
-                    <span>Email</span>
+                    <span>{copy.email}</span>
                     <input
                       autoComplete="email"
                       className="request-modal__input"
@@ -1713,9 +2003,9 @@ export function App({ pageKey = "home" }) {
                     <>
                       <div className="request-modal__dimensions" aria-label="Размеры изделия в миллиметрах">
                         {[
-                          ["length", "Длина, мм"],
-                          ["width", "Ширина, мм"],
-                          ["height", "Высота, мм"],
+                          ["length", copy.dimensions[0]],
+                          ["width", copy.dimensions[1]],
+                          ["height", copy.dimensions[2]],
                         ].map(([name, label]) => (
                           <label className="request-modal__field" key={name}>
                             <span>{label}</span>
@@ -1734,40 +2024,40 @@ export function App({ pageKey = "home" }) {
                       </div>
 
                       <label className="request-modal__field">
-                        <span>Количество, шт.</span>
+                        <span>{copy.quantity}</span>
                         <input
                           className="request-modal__input"
                           inputMode="numeric"
                           min="1"
                           name="quantity"
                           onChange={handleRequestFieldChange}
-                          placeholder="Желаемый объём партии"
+                          placeholder={copy.quantityPlaceholder}
                           type="number"
                           value={requestForm.quantity}
                         />
                       </label>
 
                       <label className="request-modal__field request-modal__file-field">
-                        <span>Чертёж или техническое задание</span>
+                        <span>{copy.drawing}</span>
                         <input
                           accept=".pdf,.png,.jpg,.jpeg,.webp,.dwg,.dxf"
                           className="request-modal__file-input"
                           onChange={handleRequestFileChange}
                           type="file"
                         />
-                        <strong>{requestForm.fileName || "Выберите PDF, изображение, DWG или DXF"}</strong>
+                        <strong>{requestForm.fileName || copy.drawingPrompt}</strong>
                       </label>
                     </>
                   ) : (
                     <label className="request-modal__field">
-                      <span>Количество, шт.</span>
+                      <span>{copy.quantity}</span>
                       <input
                         className="request-modal__input"
                         inputMode="numeric"
                         min="1"
                         name="quantity"
                         onChange={handleRequestFieldChange}
-                        placeholder="Желаемый объём партии"
+                        placeholder={copy.quantityPlaceholder}
                         type="number"
                         value={requestForm.quantity}
                       />
@@ -1775,12 +2065,12 @@ export function App({ pageKey = "home" }) {
                   )}
 
                   <label className="request-modal__field">
-                    <span>Комментарий</span>
+                    <span>{copy.comment}</span>
                     <textarea
                       className="request-modal__textarea"
                       name="comment"
                       onChange={handleRequestFieldChange}
-                      placeholder="Напишите размер, объём партии, срок поставки или другие детали"
+                      placeholder={copy.commentPlaceholder}
                       rows="5"
                       value={requestForm.comment}
                     />
@@ -1788,13 +2078,13 @@ export function App({ pageKey = "home" }) {
 
                   <div className="request-modal__footer">
                     <button className="request-modal__submit" type="submit">
-                      <span>Отправить заявку</span>
+                      <span>{copy.send}</span>
                       <img alt="" aria-hidden="true" src={withBase("/assets/generated/icon-arrow-right.webp")} />
                     </button>
 
                     <a className="request-modal__ghost" href={pagePhone.href}>
                       <img alt="" aria-hidden="true" src={withBase("/assets/generated/detail/phone.webp")} />
-                      <span>Позвонить</span>
+                      <span>{copy.call}</span>
                     </a>
                   </div>
                 </form>
@@ -1911,7 +2201,14 @@ export function App({ pageKey = "home" }) {
                 <div className="site-footer__lines">
                   {page.legalDetails.items.map(({ label, value }) => (
                     <p className="site-footer__line" key={label}>
-                      <span>{label}:</span> {value}
+                      <span>{label}:</span>{" "}
+                      {label === "Телефон" ? (
+                        <a href={pagePhone.href}>{value}</a>
+                      ) : label === "Email" ? (
+                        <a href={`mailto:${value}`}>{value}</a>
+                      ) : (
+                        value
+                      )}
                     </p>
                   ))}
                 </div>
