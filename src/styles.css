@@ -2844,15 +2844,38 @@ body[data-page-key="used"] .hero-banner--used {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 34px;
+  gap: 8px;
+  width: auto;
   height: 34px;
+  padding: 0 13px 0 9px;
   border: 1px solid rgba(245, 184, 89, 0.34);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.04);
   color: #f4bd57;
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 700;
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.site-footer__social-link:hover {
+  border-color: rgba(245, 184, 89, 0.68);
+  background: rgba(245, 184, 89, 0.1);
+  color: #ffd08a;
+  transform: translateY(-1px);
+}
+
+.site-footer__social-link:focus-visible {
+  outline: 2px solid #f4bd57;
+  outline-offset: 3px;
 }
 
 .site-footer__social-link svg {
+  flex: 0 0 auto;
   width: 17px;
   height: 17px;
   fill: currentColor;

@@ -77,15 +77,9 @@ const sharedDelivery = "Бесплатно по Минску, в предела�
 
 const footerSocialLinks = [
   {
-    label: "Telegram",
-    icon: (
-      <svg aria-hidden="true" viewBox="0 0 24 24">
-        <path d="M21.8 4.1 18.5 20c-.2.9-.9 1.1-1.6.7l-4.8-3.5-2.3 2.2c-.3.3-.5.5-1 .5l.3-4.9 8.9-8c.4-.3-.1-.5-.6-.2L6.5 13.7 1.8 12.2c-1-.3-1-1 .2-1.5L20.3 3.6c.9-.3 1.7.2 1.5.5Z" />
-      </svg>
-    ),
-  },
-  {
     label: "Instagram",
+    handle: "@used_pallets_by",
+    href: "https://www.instagram.com/used_pallets_by/",
     icon: (
       <svg aria-hidden="true" viewBox="0 0 24 24">
         <path d="M8 2h8a6 6 0 0 1 6 6v8a6 6 0 0 1-6 6H8a6 6 0 0 1-6-6V8a6 6 0 0 1 6-6Zm0 2.2A3.8 3.8 0 0 0 4.2 8v8A3.8 3.8 0 0 0 8 19.8h8a3.8 3.8 0 0 0 3.8-3.8V8A3.8 3.8 0 0 0 16 4.2H8Zm4 3.3a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9Zm0 2.2a2.3 2.3 0 1 0 0 4.6 2.3 2.3 0 0 0 0-4.6Zm4.8-2.7a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2Z" />
@@ -2214,10 +2208,19 @@ export function App({ language = "ru", pageKey = "home" }) {
                 </div>
 
                 <div className="site-footer__socials" aria-label="Социальные сети">
-                  {footerSocialLinks.map(({ icon, label }) => (
-                    <span className="site-footer__social-link" key={label} aria-label={label} title={label}>
+                  {footerSocialLinks.map(({ handle, href, icon, label }) => (
+                    <a
+                      className="site-footer__social-link"
+                      href={href}
+                      key={label}
+                      aria-label={`${label}: ${handle}`}
+                      rel="noreferrer"
+                      target="_blank"
+                      title={`${label}: ${handle}`}
+                    >
                       {icon}
-                    </span>
+                      <span>{handle}</span>
+                    </a>
                   ))}
                 </div>
               </div>
