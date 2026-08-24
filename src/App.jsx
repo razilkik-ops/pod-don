@@ -75,19 +75,6 @@ const sharedLogistics = [
 const sharedPickup = "Самовывоз: г. Минск,\nул. Ванеева, 29";
 const sharedDelivery = "Бесплатно по Минску, в пределах МКАД и до 10 км за МКАД";
 
-const footerSocialLinks = [
-  {
-    label: "Instagram",
-    handle: "@used_pallets_by",
-    href: "https://www.instagram.com/used_pallets_by/",
-    icon: (
-      <svg aria-hidden="true" viewBox="0 0 24 24">
-        <path d="M8 2h8a6 6 0 0 1 6 6v8a6 6 0 0 1-6 6H8a6 6 0 0 1-6-6V8a6 6 0 0 1 6-6Zm0 2.2A3.8 3.8 0 0 0 4.2 8v8A3.8 3.8 0 0 0 8 19.8h8a3.8 3.8 0 0 0 3.8-3.8V8A3.8 3.8 0 0 0 16 4.2H8Zm4 3.3a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9Zm0 2.2a2.3 2.3 0 1 0 0 4.6 2.3 2.3 0 0 0 0-4.6Zm4.8-2.7a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2Z" />
-      </svg>
-    ),
-  },
-];
-
 const emptyRequestForm = {
   name: "",
   phone: "",
@@ -2204,23 +2191,6 @@ export function App({ language = "ru", pageKey = "home" }) {
                         value
                       )}
                     </p>
-                  ))}
-                </div>
-
-                <div className="site-footer__socials" aria-label="Социальные сети">
-                  {footerSocialLinks.map(({ handle, href, icon, label }) => (
-                    <a
-                      className="site-footer__social-link"
-                      href={href}
-                      key={label}
-                      aria-label={`${label}: ${handle}`}
-                      rel="noreferrer"
-                      target="_blank"
-                      title={`${label}: ${handle}`}
-                    >
-                      {icon}
-                      <span>{handle}</span>
-                    </a>
                   ))}
                 </div>
               </div>
